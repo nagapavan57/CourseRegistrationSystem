@@ -26,6 +26,22 @@ public class AdminDaoImpl implements AdminDaoInterface{
  private static Logger logger = Logger.getLogger(AdminDaoImpl.class);
  private Connection con=DBUtils.getConnection();
  private PreparedStatement stmt=null;
+ 
+	private static volatile AdminDaoImpl instance = null;
+
+	private AdminDaoImpl() {
+
+	}
+
+	public static AdminDaoImpl getInstance() {
+		if (instance == null) {
+			// This is a synchronized block, when multiple threads will access this instance
+			synchronized (AdminDaoImpl.class) {
+				instance = new AdminDaoImpl();
+			}
+		}
+		return instance;
+	}
 
 	@Override
 	public void addCourse(Course course,String fee) throws CourseFoundException{

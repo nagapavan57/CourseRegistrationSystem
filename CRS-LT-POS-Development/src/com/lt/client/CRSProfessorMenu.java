@@ -56,6 +56,7 @@ public class CRSProfessorMenu {
 		System.out.println(String.format("|%-10s | %-10s|","-----------","-----------"));
 		System.out.println(String.format("|%-10s | %-10s|","COURSE CODE","COURSE CODE"));
 		System.out.println(String.format("|%-10s | %-10s|","-----------","-----------"));
+		courseOffered.forEach(c -> System.out.println(String.format("|%-11s | %-10s |",c.getCourseName(),c.getCourseCode())));
 			for(Course c:courseOffered){
 				System.out.println(String.format("|%-11s | %-10s |",c.getCourseName(),c.getCourseCode()));
 			}
@@ -116,10 +117,7 @@ public class CRSProfessorMenu {
 		{
 			
 			enrolledStudents=profInterfaceImpl.viewEnrolledStudents(profId);
-			for(StudentsEnrolled obj: enrolledStudents)
-			{
-				System.out.println(String.format("|%-11s | %-11s | %-10s|",obj.getCourseCode(), obj.getCourseName(),obj.getStudentId()));
-			}
+			enrolledStudents.forEach(obj -> System.out.println(String.format("|%-11s | %-11s | %-10s|",obj.getCourseCode(), obj.getCourseName(),obj.getStudentId())));
 			
 		}
 		catch(SQLException ex)

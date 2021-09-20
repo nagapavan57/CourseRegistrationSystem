@@ -28,7 +28,7 @@ import com.lt.exception.UserNotFoundException;
 
 public class CRSAdminMenu {
 	AdminImplService admin = new AdminImplService();
-	AdminDaoImpl adminimpl =new AdminDaoImpl();
+	AdminDaoImpl adminimpl =AdminDaoImpl.getInstance();
 	private static Logger logger = Logger.getLogger(CRSAdminMenu.class);
 	
 	Scanner sc = new Scanner(System.in);
@@ -87,23 +87,32 @@ public class CRSAdminMenu {
 
 	private void assignCourseToProf(){
 		List<Professor> professorList= admin.viewProfessors();
-		System.out.println("*************************** Professors *************************** ");
+		System.out.println("**********Professors**********");
 		System.out.println(String.format("|%-10s | %-10s | %-10s|","-----------","----","-------"));
 		System.out.println(String.format("|%-10s | %-10s | %-10s|","PROFESSORID","NAME","SUBJECT"));
 		System.out.println(String.format("|%-10s | %-10s | %-10s|","-----------","----","-------"));
-		for(Professor professor : professorList) {
-			System.out.println(String.format("|%-11s | %-10s | %-10s|", professor.getUserId(), professor.getName(), professor.getSubject()));
-		}
+		//professorList.forEach(System.out.format("|%-11s | %-10s | %-10s|", "professor")::println);
+		professorList.forEach(professor -> System.out.println(String.format("|%-11s | %-10s | %-10s|", professor.getUserId(), professor.getName(), professor.getSubject())));
+		
+		/*
+		 * for(Professor professor : professorList) {
+		 * System.out.println(String.format("|%-11s | %-10s | %-10s|",
+		 * professor.getUserId(), professor.getName(), professor.getSubject())); }
+		 */
+		 
 		
 		
 		System.out.println("\n");
 		List<Course> courseList=adminimpl.viewCourses();
-			System.out.println(String.format("|%-10s | %-10s|","-----------", "-----------"));
-			System.out.println(String.format("|%-10s | %-10s|","COURSE CODE", "COURSE NAME"));
-			System.out.println(String.format("|%-10s | %-10s|","-----------", "-----------"));
-		for(Course course : courseList) {
-			System.out.println(String.format("|%-11s | %-11s|", course.getCourseCode(), course.getCourseName()));
-		}
+		System.out.println(String.format("|%-10s | %-10s|","-----------", "-----------"));
+		System.out.println(String.format("|%-10s | %-10s|","COURSE CODE", "COURSE NAME"));
+		System.out.println(String.format("|%-10s | %-10s|","-----------", "-----------"));
+		courseList.forEach(course -> System.out.println(String.format("|%-11s | %-11s|", course.getCourseCode(), course.getCourseName())));
+			/*
+			 * for(Course course : courseList) {
+			 * System.out.println(String.format("|%-11s | %-11s|", course.getCourseCode(),
+			 * course.getCourseName())); }
+			 */
 		Scanner assignCrse = new Scanner(System.in);
 		System.out.println("Enter Course Code");
 		String crseName=assignCrse.next();
@@ -186,8 +195,7 @@ public class CRSAdminMenu {
 		}
 		System.out.println(String.format("%10s | %10s | %10s","STUDENT ID", "NAME", "BRANCH"));
 		System.out.println(String.format("%10s | %10s | %10s","----------", "----", "------"));
-		for(Student st:studentList)
-			System.out.println(String.format("%10s | %10s | %10s",st.getStudentId(),st.getName(),st.getBranchName()));
+		studentList.forEach(st -> System.out.println(String.format("%10s | %10s | %10s",st.getStudentId(),st.getName(),st.getBranchName())));
 		
 		Scanner approveStudInput = new Scanner(System.in);
 		System.out.println("Enter Student Id");
@@ -208,9 +216,8 @@ public class CRSAdminMenu {
 		}
 		System.out.println(String.format("%10s | %10s | %10s","COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
 		System.out.println(String.format("%10s   %10s   %10s","-----------", "-----------", "----------"));
-		for(Course course : courseList) {
-			System.out.println(String.format("%10s | %10s | %10s", course.getCourseCode(), course.getCourseName(), course.getProfid()));
-		}
+		courseList.forEach(course -> System.out.println(String.format("%10s | %10s | %10s", course.getCourseCode(), course.getCourseName(), course.getProfid())));
+		
 		return courseList;
 		
 	}

@@ -1,6 +1,7 @@
 package com.lt.client;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 import org.apache.log4j.Logger;
@@ -50,6 +51,8 @@ public class CRSApplication {
 	public void userLogin(){
 		
 		Scanner loginInput =  new Scanner(System.in);
+		LocalDateTime localDateTime = LocalDateTime.now();
+		
 		System.out.println("--------CRS Login--------");
 		System.out.println("Please Enter UserId");
 		String userId= loginInput.next();
@@ -66,13 +69,13 @@ public class CRSApplication {
 				{
 				case "ADMIN":
 					
-					System.out.println("Logged in Successfully!!\n");
+					System.out.println("Logged in Successfully@"+localDateTime+"\n");
 					CRSAdminMenu adminMenu=new CRSAdminMenu();
 					adminMenu.mainMenu();
 					break;
 				case "PROFESSOR":
 					
-					System.out.println("Logged in Successfully!!\n");
+					System.out.println("Logged in Successfully@"+localDateTime+"\n");
 					CRSProfessorMenu professorMenu=new CRSProfessorMenu();
 					professorMenu.mainMenu(userId);
 					
@@ -83,7 +86,7 @@ public class CRSApplication {
 					boolean isApproved=studInterfce.isApproved(studentId);
 					if(isApproved)
 					{
-						System.out.println("Logged in Successfully!!\n");
+						System.out.println("Logged in Successfully@"+localDateTime+"\n");
 						CRSStudentMenu studentMenu=new CRSStudentMenu();
 						studentMenu.mainMenu(studentId);
 						

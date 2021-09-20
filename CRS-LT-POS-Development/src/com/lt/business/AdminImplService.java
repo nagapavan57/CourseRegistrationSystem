@@ -19,7 +19,8 @@ import com.lt.exception.UserNotFoundException;
 import com.lt.validator.AdminValidator;
 
 public class AdminImplService implements AdminInterface{
-	AdminDaoImpl adminimpl=new AdminDaoImpl();
+	AdminDaoImpl adminimpl=AdminDaoImpl.getInstance();
+	
 	private static Logger logger = Logger.getLogger(AdminImplService.class);
 	public void addCourse(List<Course> courseList,Course course,String fee)
 			throws CourseFoundException {

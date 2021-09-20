@@ -187,10 +187,8 @@ public class CRSStudentMenu {
 		System.out.println(String.format("|%-10s | %-10s | %-10s|","-----------","-----------","--------------" ));
 		System.out.println(String.format("|%-10s | %-10s | %-10s|","COURSE CODE","COURSE CODE","GRADE OBTAINED"));
 		System.out.println(String.format("|%-10s | %-10s | %-10s|","-----------","-----------","--------------" ));
-		for (Grade grd : reportCard) {
-			System.out.println(String.format("|%-11s | %-11s | %-10s|",
-					grd.getCourseCode(), grd.getCourseName(), grd.getGrade()));
-		}
+		reportCard.forEach(grd -> System.out.println(String.format("|%-11s | %-11s | %-10s|",grd.getCourseCode(), grd.getCourseName(), grd.getGrade())));
+		
 
 	}
 
@@ -286,11 +284,8 @@ public class CRSStudentMenu {
 			System.out.println(String.format("|%-10s | %-10s | %-10s|", "COURSE CODE","COURSE NAME", "INSTRUCTOR"));
 			System.out.println(String.format("|%-10s | %-10s | %-10s|", "-----------","-----------", "----------"));
 			ProfessorImplService profImpl = new ProfessorImplService();
-			for (Course obj : registeredCourses) {
-	
-				System.out.println(String.format("|%-11s | %-11s | %-10s|",obj.getCourseCode(), obj.getCourseName(),
-						profImpl.getProfessorById(obj.getProfid())));
-			}
+			registeredCourses.forEach(obj -> System.out.println(String.format("|%-11s | %-11s | %-10s|",obj.getCourseCode(), obj.getCourseName(),
+					profImpl.getProfessorById(obj.getProfid()))));
 		}
 
 		return registeredCourses;
@@ -316,10 +311,13 @@ public class CRSStudentMenu {
 		System.out.println(String.format("%-10s | %-10s | %-10s","-----------", "-----------", "----------"));
 		System.out.println(String.format("%-10s | %-10s | %-10s","COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
 		System.out.println(String.format("%-10s | %-10s | %-10s","-----------", "-----------", "----------"));
-		for (Course course : coursesAvailable) {
-		System.out.println(String.format("%10s | %10s | %10s",course.getCourseCode(), course.getCourseName(),
-					course.getProfid()));
-		}
+		coursesAvailable.forEach(course -> System.out.println(String.format("%10s | %10s | %10s",course.getCourseCode(), course.getCourseName(),
+				course.getProfid())));
+		/*
+		 * for (Course course : coursesAvailable) {
+		 * System.out.println(String.format("%10s | %10s | %10s",course.getCourseCode(),
+		 * course.getCourseName(), course.getProfid())); }
+		 */
 
 		return coursesAvailable;
 
