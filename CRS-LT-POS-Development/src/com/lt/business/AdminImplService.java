@@ -78,9 +78,11 @@ public class AdminImplService implements AdminInterface{
 		System.out.println("Course Assignment is Completed!!");*/
 		try {
 			adminimpl.assignCourse(courseCode, professorId);
-		} catch (CourseNotFoundException | UserNotFoundException   e) {
-			logger.error(e.getMessage());
-			throw new UserNotFoundException(professorId);
+		} catch(CourseNotFoundException e) {
+			logger.error(e.getMessage(courseCode));
+		}
+		catch (UserNotFoundException   e) {
+			logger.error(e.getMessage(professorId));
 		}
 	}
 
