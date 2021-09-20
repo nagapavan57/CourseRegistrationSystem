@@ -15,7 +15,7 @@ import com.lt.validator.StudentValidator;
 
 public class SemisterRegistrationImplService implements SemisterRegistrationInterface{
 
-	SemisterRegistrationDaoImpl regiImpl = new SemisterRegistrationDaoImpl();
+	SemisterRegistrationDaoImpl regiImpl = SemisterRegistrationDaoImpl.getInstance();
 	private static Logger logger = Logger.getLogger(SemisterRegistrationImplService.class);
 	
 	public boolean addCourse(String courseCode,String courseName, int studentId)throws CourseNotFoundException,CourseLimitExceedException, SeatNotAvailableException, SQLException{

@@ -8,7 +8,7 @@ import com.lt.dao.StudentDaoImpl;
 import com.lt.exception.StudentNotRegisteredException;
 
 public class StudentImplService implements StudentInterface {
-	StudentDaoImpl studImpl = new StudentDaoImpl();
+	StudentDaoImpl studImpl = StudentDaoImpl.getInstance();
 	private static Logger logger = Logger.getLogger(StudentImplService.class);
 
 	public int register(String userId, String password, String name,
