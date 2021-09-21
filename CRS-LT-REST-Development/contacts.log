@@ -1,0 +1,5 @@
+19:14:24,332  INFO AdminDaoImpl,http-nio-8082-exec-1:200 - 0 courses in catalogId: 1.
+19:17:16,034  INFO AdminDaoImpl,http-nio-8082-exec-1:200 - 0 courses in catalogId: 1.
+19:20:18,994  INFO AdminDaoImpl,http-nio-8082-exec-3:200 - 0 courses in catalogId: 1.
+19:20:19,258  INFO AdminDaoImpl,http-nio-8082-exec-3:69 - Course with coursecode 101 Added Successfully!!!
+19:21:43,663  INFO AdminDaoImpl,http-nio-8082-exec-5:200 - 1 courses in catalogId: 1.

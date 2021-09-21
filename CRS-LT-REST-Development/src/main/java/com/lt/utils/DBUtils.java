@@ -8,6 +8,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import jdk.internal.misc.FileSystemOption;
+
 public class DBUtils {
 	private static Connection connection = null;
 
@@ -18,13 +20,13 @@ public class DBUtils {
 		else {
 			try {
 				Properties prop = new Properties();
-				InputStream inputStream = DBUtils.class.getClassLoader()
-						.getResourceAsStream("./config.properties");
+				InputStream inputStream = DBUtils.class.getClassLoader().getResourceAsStream("application.properties");
 				prop.load(inputStream);
-				String driver = prop.getProperty("driver");
-				String url = prop.getProperty("url");
-				String user = prop.getProperty("user");
-				String password = prop.getProperty("password");
+				String driver = prop.getProperty("spring.datasource.driverClassName");
+				String url = prop.getProperty("spring.datasource.url");
+				String user = prop.getProperty("spring.datasource.username");
+				String password = prop.getProperty("spring.datasource.password");
+				// System.out.println(driver + url + user + password);
 				Class.forName(driver);
 				connection = DriverManager.getConnection(url, user, password);
 			} catch (ClassNotFoundException e) {
