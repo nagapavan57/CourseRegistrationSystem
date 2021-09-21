@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lt.bean.Course;
 import com.lt.bean.Grade;
+import com.lt.business.SemisterRegistrationImplService;
 import com.lt.business.SemisterRegistrationInterface;
+import com.lt.dao.SemisterRegistrationDaoImpl;
 import com.lt.exception.CourseLimitExceedException;
 import com.lt.exception.CourseNotFoundException;
 import com.lt.exception.SeatNotAvailableException;
@@ -24,8 +26,8 @@ import com.lt.exception.SeatNotAvailableException;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 public class StudentRestApi {
 
-	@Autowired
-	SemisterRegistrationInterface semisterRegistrationInterface;
+
+	SemisterRegistrationImplService semisterRegistrationInterface = new SemisterRegistrationImplService();
 	
 	@PostMapping("/addCourse")
 	public void addCourseDetails(@RequestBody String courseCode,String courseName, int studentId) throws CourseNotFoundException, SQLException, CourseLimitExceedException, SeatNotAvailableException {

@@ -2,20 +2,14 @@ package com.lt.bean;
 
 import com.lt.constants.Role;
 
-public abstract class User {
+public  class User {
 	
 	private String userId;
 	private String password;
 	private Role role;
-	private String name;
 	
 	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
+	
 	public String getUserId() {
 		return userId;
 	}
@@ -35,13 +29,12 @@ public abstract class User {
 		this.role = role;
 	}
 	public User(String userId, String password, Role role) {
-		super();
 		this.userId = userId;
 		this.password = password;
 		this.role = role;
 	}
 	public User() {
-		super();
+		
 	}
 	
 	
