@@ -1,9 +1,0 @@
-package com.lt.java8;
-
-public interface CalInterface {
-	
-	default int add(int a,int b) {
-		
-	}
-
-}
