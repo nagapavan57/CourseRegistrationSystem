@@ -1,6 +1,7 @@
 package com.lt.restcontroller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -15,11 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lt.bean.Course;
 import com.lt.bean.Professor;
+import com.lt.bean.Student;
 import com.lt.business.AdminImplService;
 import com.lt.dao.AdminDaoImpl;
 import com.lt.exception.CourseFoundException;
 import com.lt.exception.CourseNotFoundException;
 import com.lt.exception.ProfessorNotAddedException;
+import com.lt.exception.StudentNotFoundException;
+import com.lt.exception.UserNotFoundException;
 
 @RestController
 @RequestMapping("/admin")
@@ -29,7 +33,7 @@ public class AdminRestApi {
 	AdminDaoImpl adminimpl = AdminDaoImpl.getInstance();
 	private static Logger logger = Logger.getLogger(AdminRestApi.class);
 
-	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.PUT, value = "/addCourse")
+	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.POST, value = "/addCourse")
 	@ResponseBody
 	public Response addCourse(@RequestBody Course course) {
 
@@ -67,7 +71,6 @@ public class AdminRestApi {
 			return Response.status(200).entity("Course " + courseCode + " deleted successfully!").build();
 
 		} catch (CourseNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return Response.status(409).entity(e.getMessage(courseCode)).build();
 		}
@@ -84,6 +87,37 @@ public class AdminRestApi {
 		} catch (ProfessorNotAddedException e) {
 			e.printStackTrace();
 			return Response.status(409).entity(e.getMessage(professor.getName())).build();
+
+		}
+	}
+	
+	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.POST, value = "/addProfessor")
+	@ResponseBody
+	public Response assignProfessor(@RequestBody Map<String, String> json) {
+
+		try {
+			admin.assignCourse(json.get("courseCode"), json.get("professorId"));
+			return Response.status(201).entity("courseCode: " + json.get("courseCode") + " assigned to professor: " + 
+			json.get("professorId")).build();
+		} catch (CourseNotFoundException e) {
+			e.printStackTrace(); 
+			return Response.status(409).entity(e.getMessage(json.get("courseCode"))).build();
+		}catch(UserNotFoundException e) {
+			return Response.status(409).entity(e.getMessage(json.get("professorId"))).build();
+		}
+		
+	}
+	
+	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.PUT, value = "/addProfessor")
+	@ResponseBody
+	public Response approveStudent(@RequestBody int studentId) {
+		List<Student> studentList = admin.viewPendingAdmissions();
+		
+		try {
+			admin.approveStudent(studentId, studentList);
+			return Response.status(200).entity("Student "+studentId+" Approved Succesfully!!").build();
+		} catch (StudentNotFoundException e) {
+			return Response.status(409).entity(e.getMessage(studentId)).build();
 
 		}
 	}

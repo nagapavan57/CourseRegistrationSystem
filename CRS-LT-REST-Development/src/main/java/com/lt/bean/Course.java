@@ -49,11 +49,9 @@ public class Course {
 	}
 
 	public Course() {
-		super();
 	}
 
 	public Course(String courseCode, String courseName, String seats, String fee) {
-		super();
 		this.courseCode = courseCode;
 		this.courseName = courseName;
 		this.seats = seats;
@@ -61,7 +59,6 @@ public class Course {
 	}
 
 	public Course(String courseCode, String courseName, String profid, String seats, String fee) {
-		super();
 		this.courseCode = courseCode;
 		this.courseName = courseName;
 		this.profid = profid;
@@ -69,9 +66,6 @@ public class Course {
 		this.fee = fee;
 	}
 
-	@Override
-	public String toString() {
-		return "Coursecode " + courseCode + " And courseName " + courseName + " with " + seats + " Avaialble";
-	}
+	
 
 }

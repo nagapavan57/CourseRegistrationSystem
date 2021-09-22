@@ -24,12 +24,12 @@ public class StudentsEnrolled {
 		this.studentId = studentId;
 	}
 	public StudentsEnrolled(String courseCode, String courseName, int studentId) {
-		super();
 		this.courseCode = courseCode;
 		this.courseName = courseName;
 		this.studentId = studentId;
 	}
-	
+	public StudentsEnrolled() {
+	}
 	
 
 }

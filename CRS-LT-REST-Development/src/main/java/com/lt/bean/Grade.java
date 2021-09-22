@@ -42,19 +42,14 @@ public class Grade {
 		this.studentId = studentId;
 	}
 	public Grade() {
-		super();
 	}
 	
 	public Grade(String courseCode, String courseName, String grade) {
-		super();
 		this.courseCode = courseCode;
 		this.courseName = courseName;
 		this.grade = grade;
 	}
-	@Override
-	public String toString() {
-		return "got "+grade+" in the Course "+courseName;
-	}
+	
 	
 	
 	
