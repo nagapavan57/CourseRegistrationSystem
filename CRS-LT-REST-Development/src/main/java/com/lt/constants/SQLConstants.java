@@ -3,7 +3,7 @@ package com.lt.constants;
 public class SQLConstants {
 
 	public static final String GET_COURSES="select * from course where profid=?";
-	public static final String GET_STUDENTS_ENROLLED = "select course.coursecode,course.coursename,registeredcourses.studentid from course  inner join registeredcourses  on course.coursecode=registeredcourses.coursecode where course.profid=? order by course.coursecode;";
+	public static final String GET_STUDENTS_ENROLLED = "select course.coursecode,course.coursename,registeredcourses.studentid from course  inner join registeredcourses  on course.coursecode=registeredcourses.coursecode where course.profid=? order by course.coursecode";
 	public static final String ADD_GRADE="insert into grade(coursecode,coursename,grade,studentid) values(?,?,?,?)";
 	public static final String GET_PROFFESSOR="select name from professor join role on professor.roleid=role.roleid join user on user.role=role.rolename where userid=?";
 	

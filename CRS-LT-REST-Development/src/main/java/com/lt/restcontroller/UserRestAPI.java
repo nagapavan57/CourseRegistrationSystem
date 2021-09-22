@@ -1,21 +1,11 @@
 package com.lt.restcontroller;
 
-import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.Map;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Request;
-import javax.ws.rs.core.Response;
-import javax.xml.bind.ValidationException;
 
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,7 +30,7 @@ public class UserRestAPI {
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.POST, value = "/login")
 	@ResponseBody
 	public String verifyCredentials(@RequestBody User user){
-
+		LocalDateTime localDateTime = LocalDateTime.now();
 		try {
 			boolean loggedin = userInterface.verifyCredentials(user.getUserId(), user.getPassword());
 			if (loggedin) {
@@ -56,7 +46,7 @@ public class UserRestAPI {
 				 * }
 				 */
 				
-				return "Login successful "+user.getUserId()+"!!";
+				return "Login successful "+user.getUserId()+"!!@"+localDateTime;
 			} else {
 				
 				return "Invalid credentials!";
@@ -70,12 +60,12 @@ public class UserRestAPI {
 	
 	@RequestMapping(method = RequestMethod.PUT, value = "/updatePassword")
 	@ResponseBody
-	public  String updatePassword(@RequestBody User user){
-		
-		if(userInterface.updatePassword(user.getUserId(), user.getPassword()))
+	public  String updatePassword(@RequestBody Map<String,String> json){
+		LocalDateTime localDateTime = LocalDateTime.now();
+		if(userInterface.updatePassword(json.get("userId"),json.get("newPassword")))
 		{
 			
-			return "Password updated successfully for User "+user.getUserId();
+			return "Password updated successfully for User "+json.get("userId")+"@"+localDateTime;
 		}
 		else
 		{
@@ -86,7 +76,7 @@ public class UserRestAPI {
 	}
 	
 	@ExceptionHandler(StudentNotRegisteredException.class)
-	@RequestMapping(method = RequestMethod.PUT, value = "/studentRegistration")
+	@RequestMapping(method = RequestMethod.POST, value = "/studentRegistration")
 	@ResponseBody
 	public  String register(@RequestBody Student student){
 

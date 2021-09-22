@@ -50,8 +50,8 @@ public class AdminImplService implements AdminInterface{
 			}*/
 		try {
 			adminimpl.deleteCourse(courseCode);
-		} catch (CourseNotFoundException ex) {
-			logger.error(ex.getMessage(courseCode));
+		}finally {
+			
 		}
 		
 		

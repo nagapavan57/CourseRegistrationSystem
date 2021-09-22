@@ -51,11 +51,13 @@ public class Course {
 	public Course() {
 	}
 
-	public Course(String courseCode, String courseName, String seats, String fee) {
+	
+	public Course(String courseCode, String courseName, String profid, String seats) {
+		super();
 		this.courseCode = courseCode;
 		this.courseName = courseName;
+		this.profid = profid;
 		this.seats = seats;
-		this.fee = fee;
 	}
 
 	public Course(String courseCode, String courseName, String profid, String seats, String fee) {
