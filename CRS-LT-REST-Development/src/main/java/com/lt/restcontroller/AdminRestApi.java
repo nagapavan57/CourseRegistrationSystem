@@ -38,7 +38,7 @@ public class AdminRestApi {
 
 		Course course1 = new Course(course.getCourseCode(), course.getCourseName(), null, course.getSeats());
 		try {
-			admin.addCourse(courseList, course1, "1000.00");
+			admin.addCourse(courseList, course1, course.getFee());
 			return Response.status(200).entity("Course " + course.getCourseCode() + " added successfully!").build();
 		} catch (CourseFoundException e) {
 			e.printStackTrace();
@@ -83,7 +83,7 @@ public class AdminRestApi {
 			return Response.status(200).entity("Professor " + professor.getName() + " added successfully!").build();
 		} catch (ProfessorNotAddedException e) {
 			e.printStackTrace();
-			return Response.status(409).entity(professor.getName() + "not added").build();
+			return Response.status(409).entity(e.getMessage(professor.getName())).build();
 
 		}
 	}
