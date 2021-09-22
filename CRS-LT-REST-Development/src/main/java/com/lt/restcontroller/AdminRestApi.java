@@ -9,13 +9,17 @@ import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lt.bean.Course;
+import com.lt.bean.Professor;
 import com.lt.business.AdminImplService;
 import com.lt.dao.AdminDaoImpl;
 import com.lt.exception.CourseFoundException;
+import com.lt.exception.CourseNotFoundException;
+import com.lt.exception.ProfessorNotAddedException;
 
 @RestController
 @RequestMapping("/admin")
@@ -53,5 +57,36 @@ public class AdminRestApi {
 		courseList.forEach(course -> System.out.println(String.format("%10s | %10s | %10s", course.getCourseCode(),
 				course.getCourseName(), course.getProfid())));
 		return courseList;
+	}
+	
+	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.DELETE, value = "/deleteCoursesInCatalogue")
+	public Response deleteCoursesInCatalogue(@RequestParam("courseCode") String courseCode) {
+		List<Course> courseList =null;
+				try {
+					admin.deleteCourse(courseCode,courseList);
+					return Response.status(200).entity("Course " +courseCode + "deleted successfully!").build();
+					
+				} catch (CourseNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return Response.status(409).entity(e.getMessage(courseCode)).build();
+				}
+				
+		
+	}
+	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.PUT, value = "/addProfessor")
+	@ResponseBody
+	public Response addProfessor(@RequestBody Professor professor) {
+
+		
+		
+		try {
+			admin.addProfessor(professor);
+			return Response.status(200).entity("Professor " + professor.getName() + " added successfully!").build();
+		} catch (ProfessorNotAddedException  e) {
+			e.printStackTrace();
+			return Response.status(409).entity(professor.getName()+"not added").build();
+			
+		}
 	}
 }
