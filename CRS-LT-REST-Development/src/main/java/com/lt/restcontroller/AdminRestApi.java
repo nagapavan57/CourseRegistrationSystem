@@ -58,35 +58,33 @@ public class AdminRestApi {
 				course.getCourseName(), course.getProfid())));
 		return courseList;
 	}
-	
-	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.DELETE, value = "/deleteCoursesInCatalogue")
-	public Response deleteCoursesInCatalogue(@RequestParam("courseCode") String courseCode) {
-		List<Course> courseList =null;
-				try {
-					admin.deleteCourse(courseCode,courseList);
-					return Response.status(200).entity("Course " +courseCode + "deleted successfully!").build();
-					
-				} catch (CourseNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					return Response.status(409).entity(e.getMessage(courseCode)).build();
-				}
-				
-		
+
+	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.DELETE, value = "/deleteCourse")
+	public Response deleteCourse(@RequestParam("courseCode") String courseCode) {
+		List<Course> courseList = null;
+		try {
+			admin.deleteCourse(courseCode, courseList);
+			return Response.status(200).entity("Course " + courseCode + " deleted successfully!").build();
+
+		} catch (CourseNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Response.status(409).entity(e.getMessage(courseCode)).build();
+		}
+
 	}
+
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.PUT, value = "/addProfessor")
 	@ResponseBody
 	public Response addProfessor(@RequestBody Professor professor) {
 
-		
-		
 		try {
 			admin.addProfessor(professor);
 			return Response.status(200).entity("Professor " + professor.getName() + " added successfully!").build();
-		} catch (ProfessorNotAddedException  e) {
+		} catch (ProfessorNotAddedException e) {
 			e.printStackTrace();
-			return Response.status(409).entity(professor.getName()+"not added").build();
-			
+			return Response.status(409).entity(professor.getName() + "not added").build();
+
 		}
 	}
 }

@@ -3,3 +3,7 @@
 19:20:18,994  INFO AdminDaoImpl,http-nio-8082-exec-3:200 - 0 courses in catalogId: 1.
 19:20:19,258  INFO AdminDaoImpl,http-nio-8082-exec-3:69 - Course with coursecode 101 Added Successfully!!!
 19:21:43,663  INFO AdminDaoImpl,http-nio-8082-exec-5:200 - 1 courses in catalogId: 1.
+13:17:33,385  INFO AdminDaoImpl,http-nio-8082-exec-1:93 - Course with coursecode 2222 Deleted Succesfully
+13:20:37,008 ERROR AdminDaoImpl,http-nio-8082-exec-3:179 - Column 'userid' cannot be null
+13:20:37,009 ERROR AdminImplService,http-nio-8082-exec-3:94 - User with Userid null Already Existed!!!
+13:24:35,918  INFO AdminDaoImpl,http-nio-8082-exec-6:175 - Professor XYZ Added Successfully
