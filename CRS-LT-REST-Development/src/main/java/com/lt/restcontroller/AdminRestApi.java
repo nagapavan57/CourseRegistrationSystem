@@ -45,7 +45,6 @@ public class AdminRestApi {
 			admin.addCourse(courseList, course1, course.getFee());
 			return Response.status(200).entity("Course " + course.getCourseCode() + " added successfully!").build();
 		} catch (CourseFoundException e) {
-			e.printStackTrace();
 			return Response.status(409).entity(e.getMessage(course.getCourseCode())).build();
 		}
 	}
@@ -71,7 +70,6 @@ public class AdminRestApi {
 			return Response.status(200).entity("Course " + courseCode + " deleted successfully!").build();
 
 		} catch (CourseNotFoundException e) {
-			e.printStackTrace();
 			return Response.status(409).entity(e.getMessage(courseCode)).build();
 		}
 
@@ -85,37 +83,36 @@ public class AdminRestApi {
 			admin.addProfessor(professor);
 			return Response.status(200).entity("Professor " + professor.getName() + " added successfully!").build();
 		} catch (ProfessorNotAddedException e) {
-			e.printStackTrace();
 			return Response.status(409).entity(e.getMessage(professor.getName())).build();
 
 		}
 	}
-	
-	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.POST, value = "/addProfessor")
+
+	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.POST, value = "/assignProfessor")
 	@ResponseBody
 	public Response assignProfessor(@RequestBody Map<String, String> json) {
 
 		try {
 			admin.assignCourse(json.get("courseCode"), json.get("professorId"));
-			return Response.status(201).entity("courseCode: " + json.get("courseCode") + " assigned to professor: " + 
-			json.get("professorId")).build();
+			return Response.status(201).entity(
+					"courseCode: " + json.get("courseCode") + " assigned to professor: " + json.get("professorId"))
+					.build();
 		} catch (CourseNotFoundException e) {
-			e.printStackTrace(); 
 			return Response.status(409).entity(e.getMessage(json.get("courseCode"))).build();
-		}catch(UserNotFoundException e) {
+		} catch (UserNotFoundException e) {
 			return Response.status(409).entity(e.getMessage(json.get("professorId"))).build();
 		}
-		
+
 	}
-	
-	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.PUT, value = "/addProfessor")
+
+	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.PUT, value = "/approveStudent")
 	@ResponseBody
-	public Response approveStudent(@RequestBody int studentId) {
+	public Response approveStudent(@RequestParam("studentId") int studentId) {
 		List<Student> studentList = admin.viewPendingAdmissions();
-		
+
 		try {
 			admin.approveStudent(studentId, studentList);
-			return Response.status(200).entity("Student "+studentId+" Approved Succesfully!!").build();
+			return Response.status(200).entity("Student " + studentId + " Approved Succesfully!!").build();
 		} catch (StudentNotFoundException e) {
 			return Response.status(409).entity(e.getMessage(studentId)).build();
 
