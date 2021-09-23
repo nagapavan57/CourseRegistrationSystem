@@ -8,31 +8,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
 
 import com.lt.bean.Course;
 import com.lt.bean.Grade;
 import com.lt.constants.SQLConstants;
 import com.lt.utils.DBUtils;
 
+@Repository
 public class SemisterRegistrationDaoImpl implements SemisterRegistrationDaoInterface {
 
 	private static Logger logger = Logger.getLogger(SemisterRegistrationDaoImpl.class);
 
-	private static volatile SemisterRegistrationDaoImpl instance = null;
-
-	private SemisterRegistrationDaoImpl() {
-
-	}
-
-	public static SemisterRegistrationDaoImpl getInstance() {
-		if (instance == null) {
-			// This is a synchronized block, when multiple threads will access this instance
-			synchronized (SemisterRegistrationDaoImpl.class) {
-				instance = new SemisterRegistrationDaoImpl();
-			}
-		}
-		return instance;
-	}
+	/*
+	 * private static volatile SemisterRegistrationDaoImpl instance = null;
+	 * 
+	 * private SemisterRegistrationDaoImpl() {
+	 * 
+	 * }
+	 * 
+	 * public static SemisterRegistrationDaoImpl getInstance() { if (instance ==
+	 * null) { // This is a synchronized block, when multiple threads will access
+	 * this instance synchronized (SemisterRegistrationDaoImpl.class) { instance =
+	 * new SemisterRegistrationDaoImpl(); } } return instance; }
+	 */
 
 	private PreparedStatement stmt = null;
 

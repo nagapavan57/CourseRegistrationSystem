@@ -8,6 +8,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,8 +22,11 @@ import com.lt.bean.Course;
 import com.lt.bean.Grade;
 import com.lt.bean.StudentsEnrolled;
 import com.lt.business.NotificationImplService;
+import com.lt.business.NotificationInterface;
 import com.lt.business.PaymentImplService;
+import com.lt.business.PaymentInterface;
 import com.lt.business.SemisterRegistrationImplService;
+import com.lt.business.SemisterRegistrationInterface;
 import com.lt.exception.CourseLimitExceedException;
 import com.lt.exception.CourseNotFoundException;
 import com.lt.exception.SeatNotAvailableException;
@@ -34,9 +38,13 @@ import com.lt.exception.SeatNotAvailableException;
 public class StudentRestApi {
 
 	private static Logger logger = Logger.getLogger(AdminRestApi.class);
-	SemisterRegistrationImplService semisterRegistrationInterface = new SemisterRegistrationImplService();
-	PaymentImplService payment = new PaymentImplService();
-	NotificationImplService notify  = new NotificationImplService();
+	
+	@Autowired
+	SemisterRegistrationInterface semisterRegistrationInterface;
+	@Autowired
+	PaymentInterface payment;
+	@Autowired
+	NotificationInterface notify;
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Consumes(MediaType.APPLICATION_JSON)

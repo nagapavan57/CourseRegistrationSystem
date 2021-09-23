@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,7 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lt.bean.Student;
 import com.lt.bean.User;
 import com.lt.business.StudentImplService;
+import com.lt.business.StudentInterface;
 import com.lt.business.UserImplService;
+import com.lt.business.UserInterface;
 import com.lt.constants.Role;
 import com.lt.exception.StudentNotRegisteredException;
 import com.lt.exception.UserNotFoundException;
@@ -31,8 +34,11 @@ import com.lt.exception.UserNotFoundException;
 public class UserRestAPI {
 
 	private static Logger logger = Logger.getLogger(AdminRestApi.class);
-	UserImplService userInterface = new UserImplService();
-	StudentImplService studInterfce = new StudentImplService();
+	
+	@Autowired
+	UserInterface userInterface;
+	@Autowired
+	StudentInterface studInterfce;
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.POST, value = "/login")
 	@ResponseBody
@@ -43,9 +49,11 @@ public class UserRestAPI {
 				String role = userInterface.getRoleById(user.getUserId());
 				Role userRole = Role.stringToName(role);
 				
-				return new ResponseEntity("Login successful "+user.getUserId()+"!!@"+localDateTime, HttpStatus.NOT_FOUND);
+				logger.info("Login successful "+user.getUserId()+"!!@"+localDateTime);
+				return new ResponseEntity(userRole+" Login successful "+user.getUserId()+"!!@"+localDateTime, HttpStatus.NOT_FOUND);
 			} else {
 				
+				logger.info("Something Went Wrong!!!");
 				throw new UserNotFoundException(user.getUserId());
 			}
 

@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,6 +22,7 @@ import com.lt.bean.Course;
 import com.lt.bean.Grade;
 import com.lt.bean.StudentsEnrolled;
 import com.lt.business.ProfessorImplService;
+import com.lt.business.ProfessorInterface;
 import com.lt.exception.GradeNotAddedException;
 
 @RestController
@@ -28,7 +30,8 @@ import com.lt.exception.GradeNotAddedException;
 @CrossOrigin //This Annotation will enable all the request which is coming from various cross platform browser
 public class ProfessorRestApi {
 	
-	ProfessorImplService professorImplService = new ProfessorImplService();
+	@Autowired
+	ProfessorInterface professorImplService;
 	private static Logger logger = Logger.getLogger(AdminRestApi.class);
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })

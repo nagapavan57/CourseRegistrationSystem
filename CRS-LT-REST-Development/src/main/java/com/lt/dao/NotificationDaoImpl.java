@@ -7,29 +7,28 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
 
 import com.lt.constants.SQLConstants;
 import com.lt.utils.DBUtils;
 
+@Repository
 public class NotificationDaoImpl implements NotificationDaoInterface {
 	private static Logger logger = Logger.getLogger(NotificationDaoImpl.class);
 
-	private static volatile NotificationDaoImpl instance = null;
-
-	private NotificationDaoImpl() {
-
-	}
-
-	public static NotificationDaoImpl getInstance() {
-		if (instance == null) {
-			// This is a synchronized block, when multiple threads will access this instance
-			synchronized (NotificationDaoImpl.class) {
-				instance = new NotificationDaoImpl();
-			}
-		}
-		return instance;
-	}
-
+	/*
+	 * private static volatile NotificationDaoImpl instance = null;
+	 * 
+	 * private NotificationDaoImpl() {
+	 * 
+	 * }
+	 * 
+	 * public static NotificationDaoImpl getInstance() { if (instance == null) { //
+	 * This is a synchronized block, when multiple threads will access this instance
+	 * synchronized (NotificationDaoImpl.class) { instance = new
+	 * NotificationDaoImpl(); } } return instance; }
+	 */
+	
 	@Override
 	public boolean sendNotification(int transactionId, String notification_msg, int studentId) throws SQLException {
 		// TODO Auto-generated method stub

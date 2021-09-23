@@ -1,10 +1,16 @@
 package com.lt.business;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.lt.dao.UserDaoImpl;
 import com.lt.exception.UserNotFoundException;
 
+@Service
 public class UserImplService implements UserInterface {
-	UserDaoImpl usrDaoImpl = UserDaoImpl.getInstance();
+	
+	@Autowired
+	UserDaoImpl usrDaoImpl;
 
 	public boolean updatePassword(String userId, String newPassword) {
 

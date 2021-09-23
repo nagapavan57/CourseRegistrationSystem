@@ -7,28 +7,27 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
 
 import com.lt.constants.SQLConstants;
 import com.lt.utils.DBUtils;
 
+@Repository
 public class PaymentDaoImpl implements PaymentDaoInterface {
 	private static Logger logger = Logger.getLogger(PaymentDaoImpl.class);
 
-	private static volatile PaymentDaoImpl instance = null;
-
-	private PaymentDaoImpl() {
-
-	}
-
-	public static PaymentDaoImpl getInstance() {
-		if (instance == null) {
-			// This is a synchronized block, when multiple threads will access this instance
-			synchronized (PaymentDaoImpl.class) {
-				instance = new PaymentDaoImpl();
-			}
-		}
-		return instance;
-	}
+	/*
+	 * private static volatile PaymentDaoImpl instance = null;
+	 * 
+	 * private PaymentDaoImpl() {
+	 * 
+	 * }
+	 * 
+	 * public static PaymentDaoImpl getInstance() { if (instance == null) { // This
+	 * is a synchronized block, when multiple threads will access this instance
+	 * synchronized (PaymentDaoImpl.class) { instance = new PaymentDaoImpl(); } }
+	 * return instance; }
+	 */
 
 	@Override
 	public int makePayment(int studentId, String mode, String amount, String cardNo, String Expiry, String CVV)

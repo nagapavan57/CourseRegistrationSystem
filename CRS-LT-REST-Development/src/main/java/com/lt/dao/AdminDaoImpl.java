@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Repository;
 
 import com.lt.bean.Course;
 import com.lt.bean.Professor;
@@ -21,27 +23,25 @@ import com.lt.exception.UserIdAlreadyExistException;
 import com.lt.exception.UserNotFoundException;
 import com.lt.utils.DBUtils;
 
+@Repository
 public class AdminDaoImpl implements AdminDaoInterface{
 
  private static Logger logger = Logger.getLogger(AdminDaoImpl.class);
  private Connection con=DBUtils.getConnection();
  private PreparedStatement stmt=null;
  
-	private static volatile AdminDaoImpl instance = null;
-
-	private AdminDaoImpl() {
-
-	}
-
-	public static AdminDaoImpl getInstance() {
-		if (instance == null) {
-			// This is a synchronized block, when multiple threads will access this instance
-			synchronized (AdminDaoImpl.class) {
-				instance = new AdminDaoImpl();
-			}
-		}
-		return instance;
-	}
+	/*
+	 * private static volatile AdminDaoImpl instance = null;
+	 * 
+	 * private AdminDaoImpl() {
+	 * 
+	 * }
+	 * 
+	 * public static AdminDaoImpl getInstance() { if (instance == null) { // This is
+	 * a synchronized block, when multiple threads will access this instance
+	 * synchronized (AdminDaoImpl.class) { instance = new AdminDaoImpl(); } } return
+	 * instance; }
+	 */
 
 	@Override
 	public boolean addCourse(Course course,String fee) throws CourseFoundException{

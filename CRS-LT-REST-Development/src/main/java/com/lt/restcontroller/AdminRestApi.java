@@ -7,6 +7,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,6 +21,7 @@ import com.lt.bean.Course;
 import com.lt.bean.Professor;
 import com.lt.bean.Student;
 import com.lt.business.AdminImplService;
+import com.lt.business.AdminInterface;
 import com.lt.dao.AdminDaoImpl;
 import com.lt.exception.CourseFoundException;
 import com.lt.exception.CourseNotFoundException;
@@ -32,8 +34,9 @@ import com.lt.exception.UserNotFoundException;
 @CrossOrigin //This Annotation will enable all the request which is coming from various cross platform browser
 public class AdminRestApi {
 
-	AdminImplService admin = new AdminImplService();
-	AdminDaoImpl adminimpl = AdminDaoImpl.getInstance();
+	@Autowired
+	AdminInterface admin;
+	
 	private static Logger logger = Logger.getLogger(AdminRestApi.class);
 
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.POST, value = "/addCourse")
@@ -41,7 +44,7 @@ public class AdminRestApi {
 	public ResponseEntity<Object> addCourse(@RequestBody Course course) throws CourseFoundException {
 
 		// We need to call the service layer over here and set all the values
-		List<Course> courseList = adminimpl.viewCourses();
+		List<Course> courseList = admin.viewCourses();
 
 		Course course1 = new Course(course.getCourseCode(), course.getCourseName(), null, course.getSeats());
 		

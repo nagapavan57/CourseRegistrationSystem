@@ -8,32 +8,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
 
 import com.lt.bean.Course;
 import com.lt.bean.StudentsEnrolled;
 import com.lt.constants.SQLConstants;
 import com.lt.exception.GradeNotAddedException;
 import com.lt.utils.DBUtils;
-
+@Repository
 public class ProfessorDaoImpl implements ProfessorDaoInterface {
 
 	private static Logger logger = Logger.getLogger(ProfessorDaoImpl.class);
 
-	private static volatile ProfessorDaoImpl instance = null;
-
-	private ProfessorDaoImpl() {
-
-	}
-
-	public static ProfessorDaoImpl getInstance() {
-		if (instance == null) {
-			// This is a synchronized block, when multiple threads will access this instance
-			synchronized (ProfessorDaoImpl.class) {
-				instance = new ProfessorDaoImpl();
-			}
-		}
-		return instance;
-	}
+	/*
+	 * private static volatile ProfessorDaoImpl instance = null;
+	 * 
+	 * private ProfessorDaoImpl() {
+	 * 
+	 * }
+	 * 
+	 * public static ProfessorDaoImpl getInstance() { if (instance == null) { //
+	 * This is a synchronized block, when multiple threads will access this instance
+	 * synchronized (ProfessorDaoImpl.class) { instance = new ProfessorDaoImpl(); }
+	 * } return instance; }
+	 */
 
 	@Override
 	public List<Course> getCoursesByProfessor(String profId) {

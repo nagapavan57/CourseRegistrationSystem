@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lt.bean.Course;
@@ -17,7 +18,8 @@ import com.lt.validator.StudentValidator;
 @Service
 public class SemisterRegistrationImplService implements SemisterRegistrationInterface{
 
-	SemisterRegistrationDaoImpl regiImpl = SemisterRegistrationDaoImpl.getInstance();
+	@Autowired
+	SemisterRegistrationDaoImpl regiImpl;
 	private static Logger logger = Logger.getLogger(SemisterRegistrationImplService.class);
 	
 	public boolean addCourse(String courseCode,String courseName, int studentId)throws CourseNotFoundException,CourseLimitExceedException, SeatNotAvailableException, SQLException{

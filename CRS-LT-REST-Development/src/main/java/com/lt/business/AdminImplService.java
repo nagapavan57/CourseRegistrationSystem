@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.lt.bean.Course;
 import com.lt.bean.Professor;
@@ -18,8 +20,10 @@ import com.lt.exception.UserIdAlreadyExistException;
 import com.lt.exception.UserNotFoundException;
 import com.lt.validator.AdminValidator;
 
+@Service
 public class AdminImplService implements AdminInterface{
-	AdminDaoImpl adminimpl=AdminDaoImpl.getInstance();
+	@Autowired
+	AdminDaoImpl adminimpl;
 	
 	private static Logger logger = Logger.getLogger(AdminImplService.class);
 	public boolean addCourse(List<Course> courseList,Course course,String fee)
