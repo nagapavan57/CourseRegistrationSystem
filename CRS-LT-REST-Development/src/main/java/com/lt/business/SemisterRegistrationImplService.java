@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 
 import com.lt.bean.Course;
 import com.lt.bean.Grade;
@@ -13,6 +14,7 @@ import com.lt.exception.CourseNotFoundException;
 import com.lt.exception.SeatNotAvailableException;
 import com.lt.validator.StudentValidator;
 
+@Service
 public class SemisterRegistrationImplService implements SemisterRegistrationInterface{
 
 	SemisterRegistrationDaoImpl regiImpl = SemisterRegistrationDaoImpl.getInstance();

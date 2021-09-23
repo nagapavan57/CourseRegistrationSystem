@@ -3,11 +3,14 @@ package com.lt.business;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.lt.bean.Course;
 import com.lt.bean.Grade;
 import com.lt.bean.StudentsEnrolled;
 import com.lt.exception.StudentNotRegisteredException;
 
+@Service
 public interface StudentInterface {
 	
 	public int register(String userId, String password,String name,String emailId,

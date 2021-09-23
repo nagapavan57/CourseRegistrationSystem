@@ -10,7 +10,7 @@ public String courseCode,profId;
 		this.profId = profId;
 	}
 	
-	public String getMessage(String courseCode){
+	public String getMessage(){
 	return "Course Code  "+courseCode+" or ProfessorId "+profId+" Not Found!!";
 	}
 

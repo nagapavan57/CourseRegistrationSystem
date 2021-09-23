@@ -5,11 +5,16 @@ import java.util.Map;
 
 import javax.ws.rs.core.MediaType;
 
+import org.apache.log4j.Logger;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lt.bean.Student;
@@ -22,39 +27,27 @@ import com.lt.exception.UserNotFoundException;
 
 @RestController
 @RequestMapping("/User")
+@CrossOrigin /*This Annotation will enable all the request which is coming from various cross platform browser*/
 public class UserRestAPI {
 
+	private static Logger logger = Logger.getLogger(AdminRestApi.class);
 	UserImplService userInterface = new UserImplService();
 	StudentImplService studInterfce = new StudentImplService();
-
+	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.POST, value = "/login")
 	@ResponseBody
-	public String verifyCredentials(@RequestBody User user){
+	public ResponseEntity<?> verifyCredentials(@RequestBody User user) throws UserNotFoundException{
 		LocalDateTime localDateTime = LocalDateTime.now();
-		try {
 			boolean loggedin = userInterface.verifyCredentials(user.getUserId(), user.getPassword());
 			if (loggedin) {
 				String role = userInterface.getRoleById(user.getUserId());
 				Role userRole = Role.stringToName(role);
-				/*
-				 * switch (userRole) {
-				 * 
-				 * case STUDENT: int studentId = studInterfce.getStudentId(user.getUserId());
-				 * boolean isApproved = studInterfce.isApproved(studentId); if (!isApproved) {
-				 * return Response.status(200).entity("Login unsuccessful! Student " +
-				 * user.getUserId() + " has not been approved by the admin!").build(); } break;
-				 * }
-				 */
 				
-				return "Login successful "+user.getUserId()+"!!@"+localDateTime;
+				return new ResponseEntity("Login successful "+user.getUserId()+"!!@"+localDateTime, HttpStatus.NOT_FOUND);
 			} else {
 				
-				return "Invalid credentials!";
+				throw new UserNotFoundException(user.getUserId());
 			}
-		} catch (UserNotFoundException e) {
-			
-			return e.getMessage(user.getUserId());
-		}
 
 	}
 	
@@ -64,36 +57,28 @@ public class UserRestAPI {
 		LocalDateTime localDateTime = LocalDateTime.now();
 		if(userInterface.updatePassword(json.get("userId"),json.get("newPassword")))
 		{
-			
 			return "Password updated successfully for User "+json.get("userId")+"@"+localDateTime;
 		}
 		else
-		{
+		{	
 			
 			return "Something went wrong, please try again!";
 		}
 
 	}
 	
-	@ExceptionHandler(StudentNotRegisteredException.class)
 	@RequestMapping(method = RequestMethod.POST, value = "/studentRegistration")
 	@ResponseBody
-	public  String register(@RequestBody Student student){
+	public  String register(@RequestBody Student student) throws StudentNotRegisteredException{
 
-		try
-		{
-			studInterfce.register(student.getUserId(),student.getPassword(),student.getName(),student.getEmailId(),
-					student.getBranchName(),student.getAddress());
+		if(studInterfce.register(student.getUserId(),student.getPassword(),student.getName(),student.getEmailId(),
+					student.getBranchName(),student.getAddress())!=0) {
+			return "Registration Successful for "+student.getUserId();
+		}else {
 			
-		}
-		catch(StudentNotRegisteredException ex)
-		{
-			
-			return ex.getMessage(student.getName()); 
+			throw new StudentNotRegisteredException(student.getName());
 		}
 		
-		
-		return "Registration Successful for "+student.getUserId();
 	}
 
 }

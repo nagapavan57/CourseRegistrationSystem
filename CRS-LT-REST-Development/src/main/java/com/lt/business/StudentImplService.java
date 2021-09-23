@@ -19,7 +19,7 @@ public class StudentImplService implements StudentInterface {
 			Student student = new Student(userId, password, Role.STUDENT, name,emailId, branchName, Address, false);
 			studId = studImpl.registerStudent(student);
 		} catch (StudentNotRegisteredException ex) {
-			logger.error(ex.getMessage(name));
+			logger.error(ex.getMessage());
 		}
 		return studId;
 	}

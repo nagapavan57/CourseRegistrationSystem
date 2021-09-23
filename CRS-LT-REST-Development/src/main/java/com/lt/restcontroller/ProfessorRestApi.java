@@ -6,8 +6,10 @@ import java.util.Map;
 
 import javax.ws.rs.core.MediaType;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,10 +25,11 @@ import com.lt.exception.GradeNotAddedException;
 
 @RestController
 @RequestMapping("/Professor")
+@CrossOrigin //This Annotation will enable all the request which is coming from various cross platform browser
 public class ProfessorRestApi {
 	
 	ProfessorImplService professorImplService = new ProfessorImplService();
-	
+	private static Logger logger = Logger.getLogger(AdminRestApi.class);
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.POST, value ="/addGrade")
@@ -34,8 +37,9 @@ public class ProfessorRestApi {
 			throws GradeNotAddedException{
 		if(professorImplService.addGrade(grade.getStudentId(), grade.getCourseCode(), grade.getCourseName(), grade.getGrade())) {
 			return new ResponseEntity("Grade added successfully for student "+grade.getStudentId(),HttpStatus.OK);
+		}else {
+			throw new GradeNotAddedException(grade.getStudentId());
 		}
-		return new ResponseEntity("Something went wrong..Please try again... ",HttpStatus.BAD_REQUEST);
 		
 	}
 	@RequestMapping(consumes = MediaType.APPLICATION_JSON, method = RequestMethod.GET, value = "/viewEnrolledStudents")

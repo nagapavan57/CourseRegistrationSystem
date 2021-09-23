@@ -7,8 +7,10 @@ import java.util.Map;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,9 +30,10 @@ import com.lt.exception.SeatNotAvailableException;
 
 @RestController
 @RequestMapping("/Student")
+@CrossOrigin //This Annotation will enable all the request which is coming from various cross platform browser
 public class StudentRestApi {
 
-
+	private static Logger logger = Logger.getLogger(AdminRestApi.class);
 	SemisterRegistrationImplService semisterRegistrationInterface = new SemisterRegistrationImplService();
 	PaymentImplService payment = new PaymentImplService();
 	NotificationImplService notify  = new NotificationImplService();
@@ -45,8 +48,10 @@ public class StudentRestApi {
 		}
 		else if(semisterRegistrationInterface.addCourse(studEnroll.getCourseCode(),studEnroll.getCourseName(),studEnroll.getStudentId())) {
 			return  new ResponseEntity("Student course registration is Sucessfull",HttpStatus.OK);
+		}else {
+			throw new CourseNotFoundException(studEnroll.getCourseCode());
 		}
-		return   new ResponseEntity("Something Wrong!!Please Try Again Later",HttpStatus.INTERNAL_SERVER_ERROR);
+		
 		}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -59,8 +64,9 @@ public class StudentRestApi {
 		}
 		else if(semisterRegistrationInterface.dropCourse(Integer.parseInt(json.get("studentId")), json.get("courseCode"), registeredCourseList)) {
 			return new ResponseEntity("Course Drop is Successfull for "+json.get("studentId"), HttpStatus.OK);
+		}else {
+			throw new CourseNotFoundException(json.get("courseCode"));
 		}
-		return new ResponseEntity("Something Wrong!!Please Try Again Later",HttpStatus.BAD_REQUEST);
 		
 	}
 	

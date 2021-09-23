@@ -2,7 +2,9 @@ package com.lt.business;
 
 import java.sql.SQLException;
 
+import org.springframework.stereotype.Service;
 
+@Service
 public interface NotificationInterface {
 	
 	/**

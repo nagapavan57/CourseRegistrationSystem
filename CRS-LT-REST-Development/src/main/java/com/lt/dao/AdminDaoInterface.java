@@ -21,21 +21,21 @@ public interface AdminDaoInterface {
 	 * @param fee
 	 * @throws CourseFoundException
 	 */
-	public void addCourse(Course course,String fee)throws CourseFoundException;
+	public boolean addCourse(Course course,String fee)throws CourseFoundException;
 	
 	/**
 	 * Delete Course from catalog
 	 * @param courseCode
 	 * @throws CourseNotFoundException 
 	 */
-	public void deleteCourse(String courseCode)throws CourseNotFoundException;
+	public boolean deleteCourse(String courseCode)throws CourseNotFoundException;
 	
 	/**
 	 * Approving Student 
 	 * @param studentId
 	 * @throws StudentNotFoundException
 	 */
-	public void approveStudent(int StudentId)throws StudentNotFoundException;
+	public boolean approveStudent(int StudentId)throws StudentNotFoundException;
 	
 	/**
 	 * Assign courses to Professor
@@ -43,14 +43,14 @@ public interface AdminDaoInterface {
 	 * @param professorId
 	 * @throws CourseNotFoundException
 	 */
-	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException,UserNotFoundException;
+	public boolean assignCourse(String courseCode, String professorId) throws CourseNotFoundException,UserNotFoundException;
 	
 	/**
 	 * Adding  professor 
 	 * @param professor
 	 * @throws ProfessorNotAddedException
 	 */
-	public void addProfessor(Professor professor)throws UserIdAlreadyExistException;
+	public boolean addProfessor(Professor professor)throws UserIdAlreadyExistException;
 	
 	/**
 	 * View courses in the catalog

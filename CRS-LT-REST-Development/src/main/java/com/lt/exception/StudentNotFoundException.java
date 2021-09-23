@@ -9,7 +9,7 @@ public int studentId;
 		this.studentId = studentId;
 	}
 	
-	public String getMessage(int studentId){
+	public String getMessage(){
 		return "Student With "+studentId+" Is Not Found!!!";
 	}
 

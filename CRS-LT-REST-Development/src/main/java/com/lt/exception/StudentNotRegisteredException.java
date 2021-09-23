@@ -18,7 +18,7 @@ public class StudentNotRegisteredException extends Exception {
 		this.studentName = studentName;
 	}
 	
-	public String getMessage(String studentName){
+	public String getMessage(){
 		return "Student With Name "+studentName+" Is Not Registered!!!";
 	}
 	

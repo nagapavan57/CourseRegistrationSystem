@@ -4,10 +4,13 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 import com.lt.bean.Course;
 import com.lt.bean.StudentsEnrolled;
 import com.lt.exception.GradeNotAddedException;
 
+@Service
 public interface ProfessorInterface {
 	
 	/**

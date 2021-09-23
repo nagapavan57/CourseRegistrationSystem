@@ -21,7 +21,7 @@ public class ProfessorImplService implements ProfessorInterface {
 		try {
 			return professorDAO.addGrade(studentId, courseCode, courseName, grade);
 		} catch (GradeNotAddedException e) {
-			logger.error(e.getMessage(studentId));
+			logger.error(e.getMessage());
 		}
 		return false;
 	}
