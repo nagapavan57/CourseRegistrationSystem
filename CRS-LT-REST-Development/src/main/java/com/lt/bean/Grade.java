@@ -1,5 +1,11 @@
 package com.lt.bean;
 
+/**
+ * 
+ * @author Pratyush Singh
+ * Grade Class
+ *
+ */
 public class Grade {
 	
 	private String courseCode;
@@ -33,6 +39,13 @@ public class Grade {
 	public void setStudentId(int studentId) {
 		this.studentId = studentId;
 	}
+	/**
+	 * 
+	 * @param courseCode
+	 * @param courseName
+	 * @param grade
+	 * @param studentId
+	 */
 	public Grade(String courseCode, String courseName, String grade,
 			int studentId) {
 		super();
@@ -43,7 +56,12 @@ public class Grade {
 	}
 	public Grade() {
 	}
-	
+	/**
+	 * 
+	 * @param courseCode
+	 * @param courseName
+	 * @param grade
+	 */
 	public Grade(String courseCode, String courseName, String grade) {
 		this.courseCode = courseCode;
 		this.courseName = courseName;

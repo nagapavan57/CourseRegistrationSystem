@@ -1,5 +1,10 @@
 package com.lt.bean;
-
+/**
+ * 
+ * @author Pratyush Singh
+ * PaymentNotification Class
+ *
+ */
 public class PaymentNotification {
 	
 	private int notificationId;
@@ -30,6 +35,13 @@ public class PaymentNotification {
 	public void setNotificationMsg(String notificationMsg) {
 		this.notificationMsg = notificationMsg;
 	}
+	/**
+	 * 
+	 * @param notificationId
+	 * @param studentId
+	 * @param transactionId
+	 * @param notificationMsg
+	 */
 	public PaymentNotification(int notificationId, int studentId,
 			String transactionId, String notificationMsg) {
 		super();

@@ -1,5 +1,6 @@
 package com.lt.exception;
 
+
 public class CourseFoundException extends Exception {
 	
 	public String courseCode;

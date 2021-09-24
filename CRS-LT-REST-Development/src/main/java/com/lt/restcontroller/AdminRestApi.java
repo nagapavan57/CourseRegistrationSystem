@@ -30,6 +30,12 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+/**
+ * 
+ * @author Nagapavan
+ * API Class For AdminOperations
+ *
+ */
 @RestController
 @RequestMapping("/admin")
 @CrossOrigin //This Annotation will enable all the request which is coming from various cross platform browser
@@ -40,6 +46,12 @@ public class AdminRestApi {
 	
 	private static Logger logger = Logger.getLogger(AdminRestApi.class);
 	
+	/**
+	 * 
+	 * @param course Course object which contains  the Course Info
+	 * @return ResponseEntity
+	 * @throws CourseFoundException
+	 */
 	@ApiOperation(value = "Add Course into CourseCatalog ", response = Iterable.class, tags = "addCourse")
 	@ApiResponses(value = { 
 	            @ApiResponse(code = 200, message = "Success|OK"),
@@ -54,13 +66,19 @@ public class AdminRestApi {
 
 		Course course1 = new Course(course.getCourseCode(), course.getCourseName(), null, course.getSeats());
 		
-			if(admin.addCourse(courseList, course1, course.getFee()))
+			if(admin.addCourse(courseList, course1, course.getFee())) {
+				logger.info("Course " + course.getCourseCode() + " added successfully!!!");
 				return new ResponseEntity("Course " + course.getCourseCode() + " added successfully!!!",HttpStatus.OK);
-			else
+				}
+			else {
 				throw new CourseFoundException(course.getCourseCode());
+				}
 	}
 	
-	
+	/**
+	 * 
+	 * @return List Of Courses from Catalog
+	 */
 	@ApiOperation(value = "Get the List of Courses from  CourseCatalog ", response = Iterable.class, tags = "viewCoursesInCatalogue")
 	@ApiResponses(value = { 
 	            @ApiResponse(code = 200, message = "Success|OK"),
@@ -77,8 +95,14 @@ public class AdminRestApi {
 		return courseList;
 	}
 	
-	@ApiOperation(value = "Delete Course from CourseCatalog ", response = Iterable.class, tags = "delete"
-			+ "Course")
+	
+	/**
+	 * 
+	 * @param courseCode Coursecode which needs to be deleted
+	 * @return ResponseEntity
+	 * @throws CourseNotFoundException
+	 */
+	@ApiOperation(value = "Delete Course from CourseCatalog ", response = Iterable.class, tags = "deleteCourse")
 	@ApiResponses(value = { 
 	            @ApiResponse(code = 200, message = "Success|OK"),
 	            @ApiResponse(code = 401, message = "Not Authorized!"), 
@@ -89,12 +113,20 @@ public class AdminRestApi {
 		List<Course> courseList = null;
 		
 			if(admin.deleteCourse(courseCode, courseList)) {
+				logger.info("Course "+courseCode+" deleted successfully!");
 				return new ResponseEntity("Course "+courseCode+" deleted successfully!",HttpStatus.OK);
 			}else {
 				throw new CourseNotFoundException(courseCode);
 			}
 	}
 	
+	
+	/**
+	 * 
+	 * @param professor Professor Object which contain professor Info
+	 * @return ResponseEntity
+	 * @throws ProfessorNotAddedException
+	 */
 	@ApiOperation(value = "Adding Professor into System", response = Iterable.class, tags = "addProfessor")
 	@ApiResponses(value = { 
 	            @ApiResponse(code = 200, message = "Success|OK"),
@@ -106,12 +138,22 @@ public class AdminRestApi {
 	public ResponseEntity<Object> addProfessor(@RequestBody Professor professor) throws ProfessorNotAddedException {
 
 		if(admin.addProfessor(professor)) {
+			logger.info("Professor " + professor.getName() + " added successfully!");
 			return new ResponseEntity("Professor " + professor.getName() + " added successfully!",HttpStatus.OK);
 		}else {
 			throw new ProfessorNotAddedException(professor.getName());
 		}
 	}
-
+	
+	
+	/**
+	 * 
+	 * @param json Input from Client with course and professor Info.
+	 * @return ResponseEntity
+	 * @throws CourseNotFoundException
+	 * @throws UserNotFoundException
+	 * @throws CourseFoundException
+	 */
 	@ApiOperation(value = "It Will Assign Professor to Particular Course", response = Iterable.class, tags = "assignProfessor")
 	@ApiResponses(value = { 
 	            @ApiResponse(code = 200, message = "Success|OK"),
@@ -132,7 +174,12 @@ public class AdminRestApi {
 
 	}
 	
-	
+	/**
+	 * 
+	 * @param studentId Id of Student which Approval is Pending
+	 * @return ResponseEntity
+	 * @throws StudentNotFoundException
+	 */
 	@ApiOperation(value = "It Approves Student Registration", response = Iterable.class, tags = "approveStudent")
 	@ApiResponses(value = { 
 	            @ApiResponse(code = 200, message = "Success|OK"),
@@ -152,6 +199,10 @@ public class AdminRestApi {
 	}
 	
 	
+	/**
+	 * 
+	 * @return List of Students whose Registration is Pending for Approval
+	 */
 	@ApiOperation(value = "Get the List of students whose Admission is Pending for Approval", response = Iterable.class, tags = "viewPendingAddmission")
 	@ApiResponses(value = { 
 	            @ApiResponse(code = 200, message = "Success|OK"),

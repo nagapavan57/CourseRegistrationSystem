@@ -28,6 +28,12 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+/**
+ * 
+ * @author Nagapavan
+ * API for Common User Operations
+ *
+ */
 @RestController
 @RequestMapping("/User")
 @CrossOrigin /*This Annotation will enable all the request which is coming from various cross platform browser*/
@@ -40,7 +46,12 @@ public class UserRestAPI {
 	@Autowired
 	StudentInterface studInterfce;
 	
-	
+	/**
+	 * 
+	 * @param user Object which contain login info
+	 * @return Response Entity
+	 * @throws UserNotFoundException
+	 */
 	@ApiOperation(value = "It will Verify Given userId and Password to login", response = Iterable.class, tags = "login")
 	@ApiResponses(value = { 
 	            @ApiResponse(code = 200, message = "Success|OK"),
@@ -66,7 +77,12 @@ public class UserRestAPI {
 
 	}
 	
-	@ApiOperation(value = "Update the Password for User", response = Iterable.class, tags = "addCourse")
+	/**
+	 * 
+	 * @param json object which contain userId and newPassword to change
+	 * @return
+	 */
+	@ApiOperation(value = "Update the Password for User", response = Iterable.class, tags = "updatePassword")
 	@ApiResponses(value = { 
 	            @ApiResponse(code = 200, message = "Success|OK"),
 	            @ApiResponse(code = 401, message = "Not Authorized!"), 
@@ -88,8 +104,13 @@ public class UserRestAPI {
 
 	}
 	
-	
-	@ApiOperation(value = "Signup For Student/Register Student", response = Iterable.class, tags = "addCourse")
+	/**
+	 * 
+	 * @param student Student Object Which Contain Signup Info of Student
+	 * @return ResponseEntity
+	 * @throws StudentNotRegisteredException
+	 */
+	@ApiOperation(value = "Signup For Student/Register Student", response = Iterable.class, tags = "studentRegistration")
 	@ApiResponses(value = { 
 	            @ApiResponse(code = 200, message = "Success|OK"),
 	            @ApiResponse(code = 401, message = "Not Authorized!"), 
@@ -97,11 +118,13 @@ public class UserRestAPI {
 	            @ApiResponse(code = 404, message = "Not Found!!!") })
 	@RequestMapping(method = RequestMethod.POST, value = "/studentRegistration")
 	@ResponseBody
-	public  String register(@RequestBody Student student) throws StudentNotRegisteredException{
+	public  ResponseEntity<?> register(@RequestBody Student student) throws StudentNotRegisteredException{
 
 		if(studInterfce.register(student.getUserId(),student.getPassword(),student.getName(),student.getEmailId(),
 					student.getBranchName(),student.getAddress())!=0) {
-			return "Registration Successful for "+student.getUserId();
+			
+			logger.info("Registration Successful for "+student.getUserId());
+			return new ResponseEntity("Registration Successful for "+student.getUserId(),HttpStatus.OK) ;
 		}else {
 			
 			throw new StudentNotRegisteredException(student.getName());

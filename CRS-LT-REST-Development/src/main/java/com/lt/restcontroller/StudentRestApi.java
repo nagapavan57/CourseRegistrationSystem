@@ -35,6 +35,12 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+/**
+ * 
+ * @author Hema
+ * Student RestApi Class
+ *
+ */
 @RestController
 @RequestMapping("/Student")
 @CrossOrigin // This Annotation will enable all the request which is coming from various
@@ -49,7 +55,16 @@ public class StudentRestApi {
 	PaymentInterface payment;
 	@Autowired
 	NotificationInterface notify;
-
+	
+	/**
+	 * 
+	 * @param studEnroll
+	 * @return Response of registeredCourse & httpStatus
+	 * @throws CourseNotFoundException
+	 * @throws SQLException
+	 * @throws CourseLimitExceedException
+	 * @throws SeatNotAvailableException
+	 */
 	@ApiOperation(value = "Register Course for Student ", response = Iterable.class, tags = "registerCourse")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success|OK"),
 			@ApiResponse(code = 401, message = "Not Authorized!"), @ApiResponse(code = 403, message = "Forbidden!!!"),
@@ -64,13 +79,22 @@ public class StudentRestApi {
 			return new ResponseEntity("Student course registration is pending", HttpStatus.BAD_REQUEST);
 		} else if (semisterRegistrationInterface.addCourse(studEnroll.getCourseCode(), studEnroll.getCourseName(),
 				studEnroll.getStudentId())) {
-			return new ResponseEntity("Student course registration is Sucessfull", HttpStatus.OK);
+			
+			logger.info("Student course registration is Sucessfull");
+			return new ResponseEntity("Student course registration is Sucessfull!!", HttpStatus.OK);
 		} else {
 			throw new CourseNotFoundException(studEnroll.getCourseCode());
 		}
 
 	}
-
+	
+	/**
+	 * 
+	 * @param json
+	 * @return Details of dropCourses & httpStatus
+	 * @throws SQLException
+	 * @throws CourseNotFoundException
+	 */
 	@ApiOperation(value = "Drop Course for Student ", response = Iterable.class, tags = "dropCourse")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success|OK"),
 			@ApiResponse(code = 401, message = "Not Authorized!"), @ApiResponse(code = 403, message = "Forbidden!!!"),
@@ -87,6 +111,7 @@ public class StudentRestApi {
 					HttpStatus.NOT_FOUND);
 		} else if (semisterRegistrationInterface.dropCourse(Integer.parseInt(json.get("studentId")),
 				json.get("courseCode"), registeredCourseList)) {
+			logger.info("Course Drop is Successfull for " + json.get("studentId"));
 			return new ResponseEntity("Course Drop is Successfull for " + json.get("studentId"), HttpStatus.OK);
 		} else {
 			throw new CourseNotFoundException(json.get("courseCode"));
@@ -94,6 +119,12 @@ public class StudentRestApi {
 
 	}
 
+	/**
+	 * 
+	 * @param studentId
+	 * @return List of courses available 
+	 * @throws SQLException
+	 */
 	@ApiOperation(value = "View Course List ", response = Iterable.class, tags = "viewCourses")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success|OK"),
 			@ApiResponse(code = 401, message = "Not Authorized!"), @ApiResponse(code = 403, message = "Forbidden!!!"),
@@ -103,6 +134,12 @@ public class StudentRestApi {
 		return semisterRegistrationInterface.viewCourses(studentId);
 	}
 
+	/**
+	 * 
+	 * @param studentId
+	 * @return Displays the registeredCourses
+	 * @throws SQLException
+	 */
 	@ApiOperation(value = "View Registered Courses for Student ", response = Iterable.class, tags = "viewRegisteredCourses")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success|OK"),
 			@ApiResponse(code = 401, message = "Not Authorized!"), @ApiResponse(code = 403, message = "Forbidden!!!"),
@@ -112,6 +149,12 @@ public class StudentRestApi {
 		return semisterRegistrationInterface.viewRegisteredCourses(studentId);
 	}
 
+	/**
+	 * 
+	 * @param studentId
+	 * @return List of grades
+	 * @throws SQLException
+	 */
 	@ApiOperation(value = "View Grade card for Student ", response = Iterable.class, tags = "viewGradeCard")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success|OK"),
 			@ApiResponse(code = 401, message = "Not Authorized!"), @ApiResponse(code = 403, message = "Forbidden!!!"),
@@ -121,6 +164,12 @@ public class StudentRestApi {
 		return semisterRegistrationInterface.viewGradeCard(studentId);
 	}
 
+	/**
+	 * 
+	 * @param studentId
+	 * @return Amount to be paid for the registeredCourses
+	 * @throws SQLException
+	 */
 	@ApiOperation(value = "Calculate fee for Student ", response = Iterable.class, tags = "calculateFee")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success|OK"),
 			@ApiResponse(code = 401, message = "Not Authorized!"), @ApiResponse(code = 403, message = "Forbidden!!!"),
@@ -132,9 +181,16 @@ public class StudentRestApi {
 			return new ResponseEntity("Something Went Wrong", HttpStatus.BAD_REQUEST);
 		}
 		double fee = semisterRegistrationInterface.calculateFee(studentId);
+		logger.info("Semister Fee for  " + studentId + " is " + fee);
 		return new ResponseEntity("Semister Fee for  " + studentId + " is " + fee, HttpStatus.OK);
 	}
 
+	/**
+	 * 
+	 * @param json
+	 * @return returns the paymentStatus
+	 * @throws SQLException
+	 */
 	@ApiOperation(value = "Pay fee for Student ", response = Iterable.class, tags = "payFee")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success|OK"),
 			@ApiResponse(code = 401, message = "Not Authorized!"), @ApiResponse(code = 403, message = "Forbidden!!!"),
@@ -157,6 +213,13 @@ public class StudentRestApi {
 		return new ResponseEntity("Semister Fee for  " + studentId + " is " + fee + " Paid Sucessfully", HttpStatus.OK);
 	}
 
+
+	/**
+	 * 
+	 * @param studentId
+	 * @return returns the status of registration
+	 * @throws SQLException
+	 */
 	@ApiOperation(value = "Get Registration Status for Student ", response = Iterable.class, tags = "getRegistrationStatus")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success|OK"),
 			@ApiResponse(code = 401, message = "Not Authorized!"), @ApiResponse(code = 403, message = "Forbidden!!!"),

@@ -1,5 +1,11 @@
 package com.lt.bean;
 
+/**
+ * 
+ * @author Pratyush Singh
+ * Grade Class
+ *
+ */
 public class Grade {
 	
 	private String courseCode;
@@ -33,6 +39,13 @@ public class Grade {
 	public void setStudentId(int studentId) {
 		this.studentId = studentId;
 	}
+	/**
+	 * 
+	 * @param courseCode
+	 * @param courseName
+	 * @param grade
+	 * @param studentId
+	 */
 	public Grade(String courseCode, String courseName, String grade,
 			int studentId) {
 		super();
@@ -42,19 +55,19 @@ public class Grade {
 		this.studentId = studentId;
 	}
 	public Grade() {
-		super();
 	}
-	
+	/**
+	 * 
+	 * @param courseCode
+	 * @param courseName
+	 * @param grade
+	 */
 	public Grade(String courseCode, String courseName, String grade) {
-		super();
 		this.courseCode = courseCode;
 		this.courseName = courseName;
 		this.grade = grade;
 	}
-	@Override
-	public String toString() {
-		return "got "+grade+" in the Course "+courseName;
-	}
+	
 	
 	
 	

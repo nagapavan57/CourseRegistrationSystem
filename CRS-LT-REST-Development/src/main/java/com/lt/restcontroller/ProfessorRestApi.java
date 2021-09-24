@@ -28,6 +28,12 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+/**
+ * 
+ * @author Sowmya
+ * Professor RestApi class
+ */
+
 @RestController
 @RequestMapping("/Professor")
 @CrossOrigin //This Annotation will enable all the request which is coming from various cross platform browser
@@ -36,6 +42,13 @@ public class ProfessorRestApi {
 	@Autowired
 	ProfessorInterface professorImplService;
 	private static Logger logger = Logger.getLogger(AdminRestApi.class);
+	
+	/**
+	 * 
+	 * @param grade
+	 * @return Response object of Grade and HttpStatus
+	 * @throws GradeNotAddedException
+	 */
 	
 	
 	@ApiOperation(value = "Add Grade to Student for Particular Course", response = Iterable.class, tags = "addGrade")
@@ -56,7 +69,13 @@ public class ProfessorRestApi {
 		
 	}
 	
-	
+	/**
+	 * 
+	 * @param json
+	 * @return The list of EnrolledStudents
+	 * @throws SQLException
+	 */
+
 	@ApiOperation(value = "Get list of Students Enrolled for the Particular Professor Teaching Course", response = Iterable.class, tags = "getStudents")
 	@ApiResponses(value = { 
 	            @ApiResponse(code = 200, message = "Success|OK"),
@@ -68,6 +87,12 @@ public class ProfessorRestApi {
 		return professorImplService.viewEnrolledStudents(json.get("profId"));
 	}
   
+	/**
+	   * 
+	   * @param json
+	   * @return the list of Course
+	   * @throws SQLException
+	   */
 	
 	@ApiOperation(value = "Get List Of Courses which he registered to teach", response = Iterable.class, tags = "addCourse")
 	@ApiResponses(value = { 
@@ -79,6 +104,12 @@ public class ProfessorRestApi {
     public List<Course> viewRegisteredCourses(@RequestBody Map<String,String> json) throws SQLException{
 	   return professorImplService.viewRegisteredCourses(json.get("profId"));
     }
+	
+	/**
+	 * 
+	 * @param profId
+	 * @return Name of the professor
+	 */
     @PostMapping
     public String getProfessorById(@PathVariable String profId) {
 	   return professorImplService.getProfessorById(profId);
