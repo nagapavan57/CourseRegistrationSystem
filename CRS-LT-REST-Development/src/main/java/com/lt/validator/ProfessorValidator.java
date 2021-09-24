@@ -5,8 +5,12 @@ import java.util.List;
 import com.lt.bean.Course;
 import com.lt.bean.StudentsEnrolled;
 
-
-
+/**
+ * 
+ * @author CRS
+ * Class for Professor Validator 
+ * 
+ */
 public class ProfessorValidator {
 	
 	/**
