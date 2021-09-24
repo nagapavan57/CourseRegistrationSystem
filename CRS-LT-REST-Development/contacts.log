@@ -10,3 +10,7 @@
 14:44:19,362  INFO AdminDaoImpl,http-nio-8082-exec-1:138 - Course with Code 3333 Assigned to Professor with id prof111 Succesfully!!!
 14:49:10,884  INFO AdminDaoImpl,http-nio-8082-exec-1:232 - Student's are Pending for Approval - 1
 14:49:10,952  INFO AdminDaoImpl,http-nio-8082-exec-1:116 - Student With Id 1001 Approved Successfully
+15:07:45,097 ERROR UserDaoImpl,http-nio-8082-exec-2:46 - User Not Found
+15:10:14,090 ERROR UserDaoImpl,http-nio-8082-exec-6:46 - User Not Found
+15:26:47,571  INFO AdminDaoImpl,http-nio-8082-exec-3:208 - 7 courses in catalogId: 1.
+15:38:10,826 ERROR UserDaoImpl,http-nio-8082-exec-1:46 - User Not Found
