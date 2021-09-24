@@ -1,7 +1,12 @@
 package com.lt.bean;
 
 import com.lt.constants.Role;
-
+/**
+ * 
+ * @author Pratyush Singh
+ * Student Class
+ *
+ */
 public class Student extends User {
 	
 	private int studentId;
@@ -61,6 +66,17 @@ public class Student extends User {
 
 	
 
+	/**
+	 * 
+	 * @param userId
+	 * @param password
+	 * @param role
+	 * @param name
+	 * @param emailId
+	 * @param branchName
+	 * @param address
+	 * @param isApproved
+	 */
 	public Student(String userId, String password, Role role,
 			String name, String emailId, String branchName, String address,
 			boolean isApproved) {
