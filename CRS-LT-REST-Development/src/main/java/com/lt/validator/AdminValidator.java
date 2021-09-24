@@ -6,7 +6,12 @@ import java.util.List;
 import com.lt.bean.Course;
 import com.lt.bean.Student;
 
-
+/**
+ * 
+ * @author CRS
+ * Class for Admin Validator 
+ * 
+ */
 public class AdminValidator {
 	
 	/**

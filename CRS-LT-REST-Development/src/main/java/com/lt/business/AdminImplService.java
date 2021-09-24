@@ -29,10 +29,10 @@ public class AdminImplService implements AdminInterface{
 	public boolean addCourse(List<Course> courseList,Course course,String fee)
 			throws CourseFoundException {
 	
-		/*if(!AdminValidator.isValidNewCourse(course, courseList)) {
-			logger.error("courseCode: " + course.getCourseCode() + " already present in catalog!");
+		if(!AdminValidator.isValidNewCourse(course, courseList)) {
+			logger.error("courseCode: " + course.getCourseCode() + " already present in catalog!!");
 			throw new CourseFoundException(course.getCourseCode());
-		}*/
+		}
 		
 		try {
 			return adminimpl.addCourse(course,fee);
@@ -46,6 +46,11 @@ public class AdminImplService implements AdminInterface{
 
 	public boolean deleteCourse(String courseCode, List<Course> courseList)
 			throws CourseNotFoundException{
+		
+		if(!AdminValidator.isValidDropCourse(courseCode, courseList)) {
+			logger.error("courseCode: " + courseCode+ " already present in catalog!!");
+			throw new CourseNotFoundException(courseCode);
+		}
 			if(adminimpl.deleteCourse(courseCode)) {
 				return true;
 			}
@@ -56,6 +61,10 @@ public class AdminImplService implements AdminInterface{
 
 	public boolean approveStudent(int studentId, List<Student> studentlist)
 			throws StudentNotFoundException {
+		if(!AdminValidator.isValidUnapprovedStudent(studentId, studentlist)) {
+			//logger.error("studentId: " + studentId + " is already approvet/not-present!");
+			throw new StudentNotFoundException(studentId);
+		}
 		if(adminimpl.approveStudent(studentId)) {
 			return true;
 		}
