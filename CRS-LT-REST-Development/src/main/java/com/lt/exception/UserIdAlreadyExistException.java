@@ -1,15 +1,27 @@
 package com.lt.exception;
 
-public class UserIdAlreadyExistException extends Exception{
+/**
+ * Custom exception class to handle Exception when requested r professor id is
+ * available while assigning to course
+ *
+ * @author saurabh
+ *
+ */
+public class UserIdAlreadyExistException extends Exception {
 
-private String profId;
-	
-	public UserIdAlreadyExistException(String profId)
-	{	
+	private String profId;
+
+	public UserIdAlreadyExistException(String profId) {
 		this.profId = profId;
 	}
-	
-	public String getMessage(String courprofIdseCode){
-		return "User with Userid "+profId+" Already Existed!!!";
+
+	/**
+	 * 
+	 * @param courprofIdseCode
+	 * @return error message: Method to display custom message "Professor id
+	 *         {profId} Already Exist!!!
+	 */
+	public String getMessage(String courprofIdseCode) {
+		return "User with Userid " + profId + " Already Existed!!!";
 	}
 }
