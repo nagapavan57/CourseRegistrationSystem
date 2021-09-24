@@ -10,23 +10,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lt.bean.Student;
 import com.lt.bean.User;
-import com.lt.business.StudentImplService;
 import com.lt.business.StudentInterface;
-import com.lt.business.UserImplService;
 import com.lt.business.UserInterface;
 import com.lt.constants.Role;
 import com.lt.exception.StudentNotRegisteredException;
 import com.lt.exception.UserNotFoundException;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/User")
@@ -40,6 +40,13 @@ public class UserRestAPI {
 	@Autowired
 	StudentInterface studInterfce;
 	
+	
+	@ApiOperation(value = "It will Verify Given userId and Password to login", response = Iterable.class, tags = "login")
+	@ApiResponses(value = { 
+	            @ApiResponse(code = 200, message = "Success|OK"),
+	            @ApiResponse(code = 401, message = "Not Authorized!"), 
+	            @ApiResponse(code = 403, message = "Forbidden!!!"),
+	            @ApiResponse(code = 404, message = "Not Found!!!") })
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.POST, value = "/login")
 	@ResponseBody
 	public ResponseEntity<?> verifyCredentials(@RequestBody User user) throws UserNotFoundException{
@@ -59,6 +66,12 @@ public class UserRestAPI {
 
 	}
 	
+	@ApiOperation(value = "Update the Password for User", response = Iterable.class, tags = "addCourse")
+	@ApiResponses(value = { 
+	            @ApiResponse(code = 200, message = "Success|OK"),
+	            @ApiResponse(code = 401, message = "Not Authorized!"), 
+	            @ApiResponse(code = 403, message = "Forbidden!!!"),
+	            @ApiResponse(code = 404, message = "Not Found!!!") })
 	@RequestMapping(method = RequestMethod.PUT, value = "/updatePassword")
 	@ResponseBody
 	public  String updatePassword(@RequestBody Map<String,String> json){
@@ -75,6 +88,13 @@ public class UserRestAPI {
 
 	}
 	
+	
+	@ApiOperation(value = "Signup For Student/Register Student", response = Iterable.class, tags = "addCourse")
+	@ApiResponses(value = { 
+	            @ApiResponse(code = 200, message = "Success|OK"),
+	            @ApiResponse(code = 401, message = "Not Authorized!"), 
+	            @ApiResponse(code = 403, message = "Forbidden!!!"),
+	            @ApiResponse(code = 404, message = "Not Found!!!") })
 	@RequestMapping(method = RequestMethod.POST, value = "/studentRegistration")
 	@ResponseBody
 	public  String register(@RequestBody Student student) throws StudentNotRegisteredException{

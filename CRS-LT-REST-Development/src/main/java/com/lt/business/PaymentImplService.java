@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.lt.dao.AdminDaoImpl;
 import com.lt.dao.NotificationDaoImpl;
 import com.lt.dao.PaymentDaoImpl;
+import com.lt.validator.StudentValidator;
 
 @Service
 public class PaymentImplService implements PaymentInterface{
@@ -19,8 +20,11 @@ public class PaymentImplService implements PaymentInterface{
 
 	@Override
 	public int makePayment(int studentId, String mode, String amount,String cardNo,String Expiry,String CVV) {
+		if(!StudentValidator.isValidCard(cardNo)) {
+			return 0;
+		}
 		try{
-		return payment.makePayment(studentId, mode, amount,cardNo,Expiry,CVV);
+			return payment.makePayment(studentId, mode, amount,cardNo,Expiry,CVV);
 		}catch(SQLException e){
 			logger.error(e.getMessage());
 		}

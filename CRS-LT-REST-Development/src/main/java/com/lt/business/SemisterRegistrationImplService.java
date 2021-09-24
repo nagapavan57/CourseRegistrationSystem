@@ -23,7 +23,7 @@ public class SemisterRegistrationImplService implements SemisterRegistrationInte
 	private static Logger logger = Logger.getLogger(SemisterRegistrationImplService.class);
 	
 	public boolean addCourse(String courseCode,String courseName, int studentId)throws CourseNotFoundException,CourseLimitExceedException, SeatNotAvailableException, SQLException{
-		
+		List<Course> availableCourseList = regiImpl.viewCourses(studentId);
 		if (regiImpl.numOfRegisteredCourses(studentId) >= 6)
 		{	
 			throw new CourseLimitExceedException(6);
@@ -36,6 +36,10 @@ public class SemisterRegistrationImplService implements SemisterRegistrationInte
 		{
 			throw new SeatNotAvailableException(courseCode);
 		} 
+		else if(!StudentValidator.isValidCourseCode(courseCode, availableCourseList))
+		{
+			throw new CourseNotFoundException(courseCode);
+		}
 		return regiImpl.addCourse(courseCode,courseName, studentId);
 	}
 

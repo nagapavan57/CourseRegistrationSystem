@@ -50,7 +50,6 @@ public class AdminRestApi {
 	@ResponseBody
 	public ResponseEntity<Object> addCourse(@RequestBody Course course) throws CourseFoundException {
 
-		// We need to call the service layer over here and set all the values
 		List<Course> courseList = admin.viewCourses();
 
 		Course course1 = new Course(course.getCourseCode(), course.getCourseName(), null, course.getSeats());
