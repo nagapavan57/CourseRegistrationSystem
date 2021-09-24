@@ -54,10 +54,13 @@ public class AdminRestApi {
 
 		Course course1 = new Course(course.getCourseCode(), course.getCourseName(), null, course.getSeats());
 		
-			if(admin.addCourse(courseList, course1, course.getFee()))
+			if(admin.addCourse(courseList, course1, course.getFee())) {
+				logger.info("Course " + course.getCourseCode() + " added successfully!!!");
 				return new ResponseEntity("Course " + course.getCourseCode() + " added successfully!!!",HttpStatus.OK);
-			else
+				}
+			else {
 				throw new CourseFoundException(course.getCourseCode());
+				}
 	}
 	
 	
@@ -89,6 +92,7 @@ public class AdminRestApi {
 		List<Course> courseList = null;
 		
 			if(admin.deleteCourse(courseCode, courseList)) {
+				logger.info("Course "+courseCode+" deleted successfully!");
 				return new ResponseEntity("Course "+courseCode+" deleted successfully!",HttpStatus.OK);
 			}else {
 				throw new CourseNotFoundException(courseCode);
@@ -106,6 +110,7 @@ public class AdminRestApi {
 	public ResponseEntity<Object> addProfessor(@RequestBody Professor professor) throws ProfessorNotAddedException {
 
 		if(admin.addProfessor(professor)) {
+			logger.info("Professor " + professor.getName() + " added successfully!");
 			return new ResponseEntity("Professor " + professor.getName() + " added successfully!",HttpStatus.OK);
 		}else {
 			throw new ProfessorNotAddedException(professor.getName());

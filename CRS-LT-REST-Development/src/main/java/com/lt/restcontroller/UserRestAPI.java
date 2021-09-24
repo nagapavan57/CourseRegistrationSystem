@@ -97,11 +97,13 @@ public class UserRestAPI {
 	            @ApiResponse(code = 404, message = "Not Found!!!") })
 	@RequestMapping(method = RequestMethod.POST, value = "/studentRegistration")
 	@ResponseBody
-	public  String register(@RequestBody Student student) throws StudentNotRegisteredException{
+	public  ResponseEntity<?> register(@RequestBody Student student) throws StudentNotRegisteredException{
 
 		if(studInterfce.register(student.getUserId(),student.getPassword(),student.getName(),student.getEmailId(),
 					student.getBranchName(),student.getAddress())!=0) {
-			return "Registration Successful for "+student.getUserId();
+			
+			logger.info("Registration Successful for "+student.getUserId());
+			return new ResponseEntity("Registration Successful for "+student.getUserId(),HttpStatus.OK) ;
 		}else {
 			
 			throw new StudentNotRegisteredException(student.getName());

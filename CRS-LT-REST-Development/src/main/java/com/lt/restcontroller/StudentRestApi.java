@@ -64,7 +64,9 @@ public class StudentRestApi {
 			return new ResponseEntity("Student course registration is pending", HttpStatus.BAD_REQUEST);
 		} else if (semisterRegistrationInterface.addCourse(studEnroll.getCourseCode(), studEnroll.getCourseName(),
 				studEnroll.getStudentId())) {
-			return new ResponseEntity("Student course registration is Sucessfull", HttpStatus.OK);
+			
+			logger.info("Student course registration is Sucessfull");
+			return new ResponseEntity("Student course registration is Sucessfull!!", HttpStatus.OK);
 		} else {
 			throw new CourseNotFoundException(studEnroll.getCourseCode());
 		}
@@ -87,6 +89,7 @@ public class StudentRestApi {
 					HttpStatus.NOT_FOUND);
 		} else if (semisterRegistrationInterface.dropCourse(Integer.parseInt(json.get("studentId")),
 				json.get("courseCode"), registeredCourseList)) {
+			logger.info("Course Drop is Successfull for " + json.get("studentId"));
 			return new ResponseEntity("Course Drop is Successfull for " + json.get("studentId"), HttpStatus.OK);
 		} else {
 			throw new CourseNotFoundException(json.get("courseCode"));
@@ -132,6 +135,7 @@ public class StudentRestApi {
 			return new ResponseEntity("Something Went Wrong", HttpStatus.BAD_REQUEST);
 		}
 		double fee = semisterRegistrationInterface.calculateFee(studentId);
+		logger.info("Semister Fee for  " + studentId + " is " + fee);
 		return new ResponseEntity("Semister Fee for  " + studentId + " is " + fee, HttpStatus.OK);
 	}
 
