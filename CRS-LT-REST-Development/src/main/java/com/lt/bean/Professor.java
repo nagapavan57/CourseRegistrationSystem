@@ -1,7 +1,12 @@
 package com.lt.bean;
 
 import com.lt.constants.Role;
-
+/**
+ * 
+ * @author Pratyush Singh
+ * Professor Class
+ *
+ */
 public class Professor extends User {
 
 	private String department;
@@ -32,13 +37,22 @@ public class Professor extends User {
 		this.subject = subject;
 	}
 
+	/**
+	 * 
+	 * @param userId
+	 * @param password
+	 * @param role
+	 * @param department
+	 * @param name
+	 * @param subject
+	 */
 	public Professor(String userId, String password, Role role, String department, String name, String subject) {
 		super(userId, password, role);
 		this.department = department;
 		this.name = name;
 		this.subject = subject;
 	}
-
+	
 	public Professor() {
 		super();
 	}

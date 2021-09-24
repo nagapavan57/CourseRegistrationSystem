@@ -4,6 +4,11 @@ import java.util.Date;
 
 import com.lt.constants.Role;
 
+/**
+ * 
+ * @author Pratyush Singh
+ * Admin Class
+ */
 public class Admin extends User{
 	
 	private String name;
@@ -22,6 +27,14 @@ public class Admin extends User{
 	public void setDoj(Date doj) {
 		this.doj = doj;
 	}
+	/**
+	 * 
+	 * @param userId
+	 * @param password
+	 * @param role
+	 * @param name
+	 * @param doj
+	 */
 	public Admin(String userId, String password, Role role, String name,
 			Date doj) {
 		super(userId, password, role);

@@ -2,6 +2,12 @@ package com.lt.bean;
 
 import com.lt.constants.Role;
 
+/**
+ * 
+ * @author Pratyush Singh
+ * User Class
+ *
+ */
 public  class User {
 	
 	private String userId;
@@ -28,6 +34,12 @@ public  class User {
 	public void setRole(Role role) {
 		this.role = role;
 	}
+	/**
+	 * 
+	 * @param userId
+	 * @param password
+	 * @param role
+	 */
 	public User(String userId, String password, Role role) {
 		this.userId = userId;
 		this.password = password;
