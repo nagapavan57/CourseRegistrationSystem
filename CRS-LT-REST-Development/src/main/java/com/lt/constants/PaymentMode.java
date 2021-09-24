@@ -1,7 +1,10 @@
 package com.lt.constants;
 
-
-
+/*
+ * @author Komal
+ * Payment mode Enum
+ * 
+ */
 public enum PaymentMode {
 	CREDIT_CARD,NET_BANKING,DEBIT_CARD,CASH;
 	
