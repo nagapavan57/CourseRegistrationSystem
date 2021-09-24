@@ -7,31 +7,30 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
 
 import com.lt.bean.Student;
 import com.lt.constants.SQLConstants;
 import com.lt.exception.StudentNotRegisteredException;
 import com.lt.utils.DBUtils;
 
+@Repository
 public class StudentDaoImpl implements StudentDaoInterface {
 
 	private static Logger logger = Logger.getLogger(StudentDaoImpl.class);
 
-	private static volatile StudentDaoImpl instance = null;
-
-	private StudentDaoImpl() {
-
-	}
-
-	public static StudentDaoImpl getInstance() {
-		if (instance == null) {
-			// This is a synchronized block, when multiple threads will access this instance
-			synchronized (StudentDaoImpl.class) {
-				instance = new StudentDaoImpl();
-			}
-		}
-		return instance;
-	}
+	/*
+	 * private static volatile StudentDaoImpl instance = null;
+	 * 
+	 * private StudentDaoImpl() {
+	 * 
+	 * }
+	 * 
+	 * public static StudentDaoImpl getInstance() { if (instance == null) { // This
+	 * is a synchronized block, when multiple threads will access this instance
+	 * synchronized (StudentDaoImpl.class) { instance = new StudentDaoImpl(); } }
+	 * return instance; }
+	 */
 
 	@Override
 	public int registerStudent(Student student) throws StudentNotRegisteredException {

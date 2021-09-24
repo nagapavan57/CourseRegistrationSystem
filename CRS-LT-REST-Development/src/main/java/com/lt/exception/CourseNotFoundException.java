@@ -9,7 +9,7 @@ public class CourseNotFoundException extends Exception{
 		this.courseCode = courseCode;
 	}
 	
-	public String getMessage(String courseCode){
+	public String getMessage(){
 		return "Course Code with "+courseCode+" Is Not Available";
 	}
 

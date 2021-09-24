@@ -5,14 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.lt.bean.Course;
 import com.lt.bean.StudentsEnrolled;
 import com.lt.dao.ProfessorDaoImpl;
 import com.lt.exception.GradeNotAddedException;
 
+@Service
 public class ProfessorImplService implements ProfessorInterface {
-	ProfessorDaoImpl professorDAO = ProfessorDaoImpl.getInstance();
+	
+	@Autowired
+	ProfessorDaoImpl professorDAO;
 	private static Logger logger = Logger.getLogger(ProfessorImplService.class);
 
 	public boolean addGrade(int studentId, String courseCode, String courseName, String grade)
@@ -21,7 +26,7 @@ public class ProfessorImplService implements ProfessorInterface {
 		try {
 			return professorDAO.addGrade(studentId, courseCode, courseName, grade);
 		} catch (GradeNotAddedException e) {
-			logger.error(e.getMessage(studentId));
+			logger.error(e.getMessage());
 		}
 		return false;
 	}

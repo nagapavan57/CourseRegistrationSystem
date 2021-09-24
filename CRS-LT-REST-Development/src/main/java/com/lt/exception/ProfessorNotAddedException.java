@@ -8,7 +8,7 @@ public class ProfessorNotAddedException extends Exception {
 		this.professorName = professorName;
 	}
 
-	public String getMessage(String professorName) {
+	public String getMessage() {
 		return "Failed to add professor " + professorName;
 	}
 

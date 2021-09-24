@@ -2,6 +2,8 @@ package com.lt.business;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.lt.bean.Course;
 import com.lt.bean.Professor;
 import com.lt.bean.Student;
@@ -11,6 +13,7 @@ import com.lt.exception.ProfessorNotAddedException;
 import com.lt.exception.StudentNotFoundException;
 import com.lt.exception.UserNotFoundException;
 
+@Service
 public interface AdminInterface {
 	
 	
@@ -20,7 +23,7 @@ public interface AdminInterface {
 	 * @param courseList : Courses available in the catalog
 	 * @param fee : fee of that particular course
 	 */
-	public void addCourse(List<Course> courseList,Course course,String fee) throws CourseFoundException;
+	public boolean addCourse(List<Course> courseList,Course course,String fee) throws CourseFoundException;
 	
 	/**
 	 * Method to Delete Course from Course Catalog
@@ -28,7 +31,7 @@ public interface AdminInterface {
 	 * @param courseList : Courses available in the catalog
 	 * @throws CourseNotFoundException 
 	 */
-	public void deleteCourse(String courseCode,List<Course> courceList) throws CourseNotFoundException;
+	public boolean deleteCourse(String courseCode,List<Course> courceList) throws CourseNotFoundException;
 	
 	/**
 	 * Method to approve a Student 
@@ -36,13 +39,13 @@ public interface AdminInterface {
 	 * @param studentList
 	 * @throws StudentNotFoundException
 	 */
-	public void approveStudent(int StudentId,List<Student>studentlist)throws StudentNotFoundException;
+	public boolean approveStudent(int StudentId,List<Student>studentlist)throws StudentNotFoundException;
 	
 	/**
 	 * Method to add Professor to database
 	 * @param professor : Professor Object storing details of a professor
 	 */
-	public void addProfessor(Professor professor)throws ProfessorNotAddedException;
+	public boolean addProfessor(Professor professor)throws ProfessorNotAddedException;
 	
 	/**
 	 * Method to assign Course to a Professor
@@ -50,7 +53,7 @@ public interface AdminInterface {
 	 * @param professorId
 	 * @throws CourseNotFoundException
 	 */
-	public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException,UserNotFoundException;
+	public boolean assignCourse(String courseCode, String professorId) throws CourseNotFoundException,UserNotFoundException;
 	
 	/**
 	 * Method to get list of courses in catalog

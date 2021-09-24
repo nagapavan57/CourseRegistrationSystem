@@ -1,14 +1,19 @@
 package com.lt.business;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.lt.bean.Student;
 import com.lt.constants.Role;
 import com.lt.dao.StudentDaoImpl;
 import com.lt.exception.StudentNotRegisteredException;
 
+@Service
 public class StudentImplService implements StudentInterface {
-	StudentDaoImpl studImpl = StudentDaoImpl.getInstance();
+	
+	@Autowired
+	StudentDaoImpl studImpl;
 	private static Logger logger = Logger.getLogger(StudentImplService.class);
 
 	public int register(String userId, String password, String name,
@@ -19,7 +24,7 @@ public class StudentImplService implements StudentInterface {
 			Student student = new Student(userId, password, Role.STUDENT, name,emailId, branchName, Address, false);
 			studId = studImpl.registerStudent(student);
 		} catch (StudentNotRegisteredException ex) {
-			logger.error(ex.getMessage(name));
+			logger.error(ex.getMessage());
 		}
 		return studId;
 	}

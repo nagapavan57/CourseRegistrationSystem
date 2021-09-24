@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Repository;
 
 import com.lt.bean.Course;
 import com.lt.bean.Professor;
@@ -21,30 +23,28 @@ import com.lt.exception.UserIdAlreadyExistException;
 import com.lt.exception.UserNotFoundException;
 import com.lt.utils.DBUtils;
 
+@Repository
 public class AdminDaoImpl implements AdminDaoInterface{
 
  private static Logger logger = Logger.getLogger(AdminDaoImpl.class);
  private Connection con=DBUtils.getConnection();
  private PreparedStatement stmt=null;
  
-	private static volatile AdminDaoImpl instance = null;
-
-	private AdminDaoImpl() {
-
-	}
-
-	public static AdminDaoImpl getInstance() {
-		if (instance == null) {
-			// This is a synchronized block, when multiple threads will access this instance
-			synchronized (AdminDaoImpl.class) {
-				instance = new AdminDaoImpl();
-			}
-		}
-		return instance;
-	}
+	/*
+	 * private static volatile AdminDaoImpl instance = null;
+	 * 
+	 * private AdminDaoImpl() {
+	 * 
+	 * }
+	 * 
+	 * public static AdminDaoImpl getInstance() { if (instance == null) { // This is
+	 * a synchronized block, when multiple threads will access this instance
+	 * synchronized (AdminDaoImpl.class) { instance = new AdminDaoImpl(); } } return
+	 * instance; }
+	 */
 
 	@Override
-	public void addCourse(Course course,String fee) throws CourseFoundException{
+	public boolean addCourse(Course course,String fee) throws CourseFoundException{
 		try {
 		
 			
@@ -64,20 +64,22 @@ public class AdminDaoImpl implements AdminDaoInterface{
 				//logger.info(update_status+" Course Added");
 				if(update_status==0){
 					logger.error("Course with coursecode "+course.getCourseCode()+" Not Added!!!");
+					return false;
 					
 				}else{
 					logger.info("Course with coursecode "+course.getCourseCode()+" Added Successfully!!!");
+					return true;
 				}
 			}
 		}catch (SQLException e) {
 				logger.error(e.getMessage());
 				throw new CourseFoundException(course.getCourseCode());
 		}
-		
+		return false;
 	}
 
 	@Override
-	public void deleteCourse(String courseCode) throws CourseNotFoundException{
+	public boolean deleteCourse(String courseCode) throws CourseNotFoundException{
 		
 		try {	
 			stmt=con.prepareStatement(SQLConstants.DEL_COURSES_IN_CATALOG);
@@ -89,8 +91,10 @@ public class AdminDaoImpl implements AdminDaoInterface{
 				int del_Status=stmt.executeUpdate();
 				if(del_Status==0){
 					logger.error("Course with coursecode "+courseCode+"Not Deleted!!!!");
+					return true;
 				}else{
 					logger.info("Course with coursecode "+courseCode+" Deleted Succesfully");
+					return false;
 				}
 			}else{
 				throw new CourseNotFoundException(courseCode);
@@ -103,7 +107,7 @@ public class AdminDaoImpl implements AdminDaoInterface{
 	}
 
 	@Override
-	public void approveStudent(int studentId) throws StudentNotFoundException {
+	public boolean approveStudent(int studentId) throws StudentNotFoundException {
 		try {
 			stmt=con.prepareStatement(SQLConstants.APPROVE_STUDENT);
 			stmt.setInt(1, 1);
@@ -111,19 +115,20 @@ public class AdminDaoImpl implements AdminDaoInterface{
 			int apprv_status=stmt.executeUpdate();
 			if(apprv_status==0){
 				logger.error("Approval unsuccessfull for Student id "+studentId);
-				throw new StudentNotFoundException(studentId);
+			}else {
+				logger.info("Student With Id "+studentId+" Approved Successfully");
+				return true;
 			}
-			logger.info("Student With Id "+studentId+" Approved Successfully");
 		}
 		catch(SQLException ex){
 			logger.error(ex.getMessage());
 			throw new StudentNotFoundException(studentId);
 		}
-		
+		return false;
 	}
 
 	@Override
-	public void assignCourse(String courseCode, String professorId)
+	public boolean assignCourse(String courseCode, String professorId)
 			throws CourseNotFoundException,UserNotFoundException{
 		
 		try {
@@ -133,9 +138,10 @@ public class AdminDaoImpl implements AdminDaoInterface{
 			int row = stmt.executeUpdate();
 			if(row == 0) {
 				logger.error("Course code "+courseCode+" Not Found!!");
-				throw new CourseNotFoundException(courseCode);
+				return false;
 			}else{
 				logger.info("Course with Code "+courseCode+" Assigned to Professor with id "+professorId+" Succesfully!!!");
+				return true;
 			}
 		}
 		catch (SQLException e) {
@@ -145,7 +151,7 @@ public class AdminDaoImpl implements AdminDaoInterface{
 	}
 
 	@Override
-	public void addProfessor(Professor professor) throws UserIdAlreadyExistException {
+	public boolean addProfessor(Professor professor) throws UserIdAlreadyExistException {
 		try {
 			int status=0;
 			stmt = con.prepareStatement(SQLConstants.GET_ROLENAME);
@@ -171,8 +177,10 @@ public class AdminDaoImpl implements AdminDaoInterface{
 			}
 			if(status==0){
 				logger.error("Adding Professor Failed for Professor "+professor.getName());
+				return false;
 			}else{
 				logger.info("Professor "+professor.getName()+" Added Successfully");
+				return true;
 			}
 		}
 		catch (SQLException e) {

@@ -6,30 +6,29 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
 
 import com.lt.constants.SQLConstants;
 import com.lt.exception.UserNotFoundException;
 import com.lt.utils.DBUtils;
 
+@Repository
 public class UserDaoImpl implements UserDaoInterface {
 
 	private static Logger logger = Logger.getLogger(UserDaoImpl.class);
 
-	private static volatile UserDaoImpl instance = null;
-
-	private UserDaoImpl() {
-
-	}
-
-	public static UserDaoImpl getInstance() {
-		if (instance == null) {
-			// This is a synchronized block, when multiple threads will access this instance
-			synchronized (UserDaoImpl.class) {
-				instance = new UserDaoImpl();
-			}
-		}
-		return instance;
-	}
+	/*
+	 * private static volatile UserDaoImpl instance = null;
+	 * 
+	 * private UserDaoImpl() {
+	 * 
+	 * }
+	 * 
+	 * public static UserDaoImpl getInstance() { if (instance == null) { // This is
+	 * a synchronized block, when multiple threads will access this instance
+	 * synchronized (UserDaoImpl.class) { instance = new UserDaoImpl(); } } return
+	 * instance; }
+	 */
 
 	@Override
 	public boolean verifyCredentials(String userId, String password) throws UserNotFoundException {

@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.lt.bean.Course;
 import com.lt.bean.Professor;
@@ -18,11 +20,13 @@ import com.lt.exception.UserIdAlreadyExistException;
 import com.lt.exception.UserNotFoundException;
 import com.lt.validator.AdminValidator;
 
+@Service
 public class AdminImplService implements AdminInterface{
-	AdminDaoImpl adminimpl=AdminDaoImpl.getInstance();
+	@Autowired
+	AdminDaoImpl adminimpl;
 	
 	private static Logger logger = Logger.getLogger(AdminImplService.class);
-	public void addCourse(List<Course> courseList,Course course,String fee)
+	public boolean addCourse(List<Course> courseList,Course course,String fee)
 			throws CourseFoundException {
 	
 		/*if(!AdminValidator.isValidNewCourse(course, courseList)) {
@@ -31,45 +35,38 @@ public class AdminImplService implements AdminInterface{
 		}*/
 		
 		try {
-			adminimpl.addCourse(course,fee);
+			return adminimpl.addCourse(course,fee);
 		} catch (CourseFoundException ex) {
-			logger.error(ex.getMessage(course.getCourseCode()));
+			logger.error(ex.getMessage());
 			
 		}
-		
+		return false;
 		
 	}
 
-	public void deleteCourse(String courseCode, List<Course> courseList)
+	public boolean deleteCourse(String courseCode, List<Course> courseList)
 			throws CourseNotFoundException{
-		/*for(Course c:courseList){
-			if(c.getCourseCode().equals(courseCode)){
-				courseList.remove(c);
-				System.out.println("Course deleted Successfully\n");
+			if(adminimpl.deleteCourse(courseCode)) {
+				return true;
+			}
 		
-			}*/
-		try {
-			adminimpl.deleteCourse(courseCode);
-		}finally {
-			
-		}
-		
+		return false;
 		
 	}
 
-	public void approveStudent(int studentId, List<Student> studentlist)
+	public boolean approveStudent(int studentId, List<Student> studentlist)
 			throws StudentNotFoundException {
-		try {
-			adminimpl.approveStudent(studentId);
-		} catch (StudentNotFoundException ex) {
-			logger.error(ex.getMessage(studentId));
+		if(adminimpl.approveStudent(studentId)) {
+			return true;
 		}
+		return false;
+
 		
 	}
 
 	
 
-	public void assignCourse(String courseCode, String professorId)
+	public boolean assignCourse(String courseCode, String professorId)
 			throws CourseNotFoundException,UserNotFoundException {
 		/*for(Course c:courceList){
 			if(c.getCourseCode().equalsIgnoreCase(courseCode))
@@ -77,23 +74,24 @@ public class AdminImplService implements AdminInterface{
 		}
 		System.out.println("Course Assignment is Completed!!");*/
 		try {
-			adminimpl.assignCourse(courseCode, professorId);
+			return adminimpl.assignCourse(courseCode, professorId);
 		} catch(CourseNotFoundException e) {
-			logger.error(e.getMessage(courseCode));
+			logger.error(e.getMessage());
 		}
 		catch (UserNotFoundException   e) {
-			logger.error(e.getMessage(professorId));
+			//logger.error(e.getMessage(professorId));
 		}
+		return false;
 	}
 
-	public void addProfessor(Professor professor)
+	public boolean addProfessor(Professor professor)
 			throws ProfessorNotAddedException {
 		try {
-			adminimpl.addProfessor(professor);
+			return adminimpl.addProfessor(professor);
 		} catch (UserIdAlreadyExistException e) {
 			logger.error(e.getMessage(professor.getUserId()));
 		}
-		
+		return false;
 	}
 	
 	@Override

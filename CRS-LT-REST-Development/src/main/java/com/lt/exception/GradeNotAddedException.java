@@ -8,7 +8,7 @@ public class GradeNotAddedException extends Exception {
 		this.studentId = studentId;
 	}
 
-	public String getMessage(int studentId) {
+	public String getMessage() {
 		return "Grade Assigning Failed for Student with Id:" + studentId;
 	}
 }

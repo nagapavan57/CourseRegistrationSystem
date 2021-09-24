@@ -9,7 +9,7 @@ private String professorName;
 		this.professorName = professorName;
 	}
 	
-	public String getMessage(String professorName){
+	public String getMessage(){
 		return "Professor with name "+professorName+" Is Not Available";
 	}
 

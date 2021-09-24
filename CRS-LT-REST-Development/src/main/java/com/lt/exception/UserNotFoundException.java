@@ -9,7 +9,7 @@ public String profId;
 		this.profId = profId;
 	}
 	
-	public String getMessage(String profId){
+	public String getMessage(){
 		return "User With Id "+profId+" Not Found!!!";
 	}
 

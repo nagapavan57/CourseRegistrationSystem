@@ -9,7 +9,7 @@ public class CourseFoundException extends Exception {
 		this.courseCode = courseCode;
 	}
 	
-	public String getMessage(String courseCode){
+	public String getMessage(){
 		return "Course Code with "+courseCode+"Is Already Available in Catalog";
 	}
 
