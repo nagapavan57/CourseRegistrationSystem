@@ -1,5 +1,11 @@
 package com.lt.constants;
 
+/**
+ * 
+ * @author Nagapavan
+ * Role Enum
+ *
+ */
 public enum Role {
 	ADMIN,PROFESSOR, STUDENT;
 	

@@ -1,5 +1,11 @@
 package com.lt.bean;
 
+/**
+ * 
+ * @author Pratyush Singh
+ * StudentsEnrolled Class
+ *
+ */
 public class StudentsEnrolled {
 	
 	private String courseCode;
@@ -23,13 +29,19 @@ public class StudentsEnrolled {
 	public void setStudentId(int studentId) {
 		this.studentId = studentId;
 	}
+	/**
+	 * 
+	 * @param courseCode
+	 * @param courseName
+	 * @param studentId
+	 */
 	public StudentsEnrolled(String courseCode, String courseName, int studentId) {
-		super();
 		this.courseCode = courseCode;
 		this.courseName = courseName;
 		this.studentId = studentId;
 	}
-	
+	public StudentsEnrolled() {
+	}
 	
 
 }
