@@ -102,8 +102,7 @@ public class AdminRestApi {
 	 * @return ResponseEntity
 	 * @throws CourseNotFoundException
 	 */
-	@ApiOperation(value = "Delete Course from CourseCatalog ", response = Iterable.class, tags = "delete"
-			+ "Course")
+	@ApiOperation(value = "Delete Course from CourseCatalog ", response = Iterable.class, tags = "deleteCourse")
 	@ApiResponses(value = { 
 	            @ApiResponse(code = 200, message = "Success|OK"),
 	            @ApiResponse(code = 401, message = "Not Authorized!"), 
