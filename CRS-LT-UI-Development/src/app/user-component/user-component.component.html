@@ -1,0 +1,83 @@
+    <!-- <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width , initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="./user-component.component.css"> -->
+
+
+    <title>CRS</title>
+
+
+
+    <div id="welcome">
+        <h1>Welcome to CRS</h1>
+    </div>
+    <div id="login-button">
+        <img src="https://dqcgrsy5v35b9.cloudfront.net/cruiseplanner/assets/img/icons/login-w-icon.png" />
+
+    </div>
+    <div id="container">
+        <h1>Log In</h1>
+        <span class="close-btn">
+            <img src="https://cdn4.iconfinder.com/data/icons/miu/22/circle_close_delete_-128.png" />
+        </span>
+
+        
+            <input type="text" id="userid" required [(ngModel)]="userObj.userId" name="userId"
+                 placeholder="UserId"/>
+            <input type="password" id="password" required [(ngModel)]="userObj.password" name="password" 
+            placeholder="Password"/>
+            <a href="#" (click)="checkLogin();login()">Log in</a>
+            <div id="remember-container">
+                <!-- <input type="checkbox" id="checkbox-2-1" class="checkbox" /> -->
+                <span id="remember">Remember me</span>
+                <span id="signup">Signup&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            </div>
+            <!--<div id="">
+                <span id="signup">Update Password</span>
+            </div>-->
+    </div>
+
+    <!-- Signup Container -->
+    <div id="signup-container">
+        <h1>Signup</h1>
+        <span class="close-btn">
+            <img src="https://cdn4.iconfinder.com/data/icons/miu/22/circle_close_delete_-128.png" />
+        </span>
+
+        <form>
+            <input type="userId" [(ngModel)]="studentObj.userId" name="userId" placeholder="UserId">
+            <input type="password" [(ngModel)]="studentObj.password" name="password" placeholder="Password">
+            <input type="name" [(ngModel)]="studentObj.name" name="name" placeholder="Name">
+            <input type="email" [(ngModel)]="studentObj.emailId" name="email" placeholder="EmailId">
+            <input type="branchname" [(ngModel)]="studentObj.branchName" name="branchname" placeholder="BranchName">
+            <input type="address" [(ngModel)]="studentObj.Address" name="address" placeholder="Address"><br>
+            <a href="#" (click)="register()" class="orange-btn">Signup</a>
+        </form>
+    </div>
+
+
+    <!-- <div *ngFor='let msg of message'>
+        <p>{{msg.entity}}</p>
+    
+    </div> -->
+    <!-- <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Response</th>
+            </tr>
+        </thead>
+        
+            
+            <tbody  *ngFor='let msg of message'>
+                <tr>
+                <td>{{msg.entity}}</td>
+            </tr>
+        </tbody>
+    </table> -->
+    <div *ngIf="!submitted">
+    <p>Login Successfull</p>
+    </div> 
+    <router-outlet></router-outlet>
