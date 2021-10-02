@@ -100,7 +100,7 @@ public class StudentRestApi {
 			@ApiResponse(code = 401, message = "Not Authorized!"), @ApiResponse(code = 403, message = "Forbidden!!!"),
 			@ApiResponse(code = 404, message = "Not Found!!!") })
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@RequestMapping(method = RequestMethod.DELETE, value = "/dropCourse")
+	@RequestMapping(method = RequestMethod.POST, value = "/dropCourse")
 	public ResponseEntity dropCources(@RequestBody Map<String, String> json)
 			throws SQLException, CourseNotFoundException {
 		List<Course> registeredCourseList = semisterRegistrationInterface
@@ -129,8 +129,8 @@ public class StudentRestApi {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success|OK"),
 			@ApiResponse(code = 401, message = "Not Authorized!"), @ApiResponse(code = 403, message = "Forbidden!!!"),
 			@ApiResponse(code = 404, message = "Not Found!!!") })
-	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.GET, value = "/viewAvailableCourses")
-	public List<Course> viewCourses(@RequestBody int studentId) throws SQLException {
+	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.GET, value = "/viewAvailableCourses/{studentId}")
+	public List<Course> viewCourses(@PathVariable int studentId) throws SQLException {
 		return semisterRegistrationInterface.viewCourses(studentId);
 	}
 
@@ -144,8 +144,8 @@ public class StudentRestApi {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success|OK"),
 			@ApiResponse(code = 401, message = "Not Authorized!"), @ApiResponse(code = 403, message = "Forbidden!!!"),
 			@ApiResponse(code = 404, message = "Not Found!!!") })
-	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.GET, value = "/viewRegisteredCourses")
-	public List<Course> viewRegisteredCourses(@RequestBody int studentId) throws SQLException {
+	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.GET, value = "/viewRegisteredCourses/{studentId}")
+	public List<Course> viewRegisteredCourses(@PathVariable int studentId) throws SQLException {
 		return semisterRegistrationInterface.viewRegisteredCourses(studentId);
 	}
 
@@ -159,8 +159,8 @@ public class StudentRestApi {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success|OK"),
 			@ApiResponse(code = 401, message = "Not Authorized!"), @ApiResponse(code = 403, message = "Forbidden!!!"),
 			@ApiResponse(code = 404, message = "Not Found!!!") })
-	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.GET, value = "/viewGradeCard")
-	public List<Grade> viewGradeCourses(@RequestBody int studentId) throws SQLException {
+	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.GET, value = "/viewGradeCard/{studentId}")
+	public List<Grade> viewGradeCourses(@PathVariable int studentId) throws SQLException {
 		return semisterRegistrationInterface.viewGradeCard(studentId);
 	}
 
