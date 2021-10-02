@@ -1,1 +1,109 @@
-<p>student-component works!</p>
+<mat-tab-group mat-align-tabs="start">
+    <mat-tab label="Available Courses">
+        <div>
+            <div class="col-lg-8">
+                <h3>Available Courses</h3>
+                <br>
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Course Code</th>
+                            <th scope="col">Course Name</th>
+                            <th scope="col">Seats</th>
+                            <th scope="col">Fee(Rs)</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let course of availableCourses; let i=index">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{course.courseCode}}</td>
+                            <td>{{course.courseName}}</td>
+                            <td>{{course.seats}}</td>
+                            <td>{{course.fee}}</td>
+                            <td><button type="button" class="btn btn-light"
+                                    (click)="registerCourse(course.courseCode, course.courseName)">Register</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab label="Registered Courses">
+        <div>
+            <div class="col-lg-8">
+                <h3>Registered Courses</h3>
+                <br>
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Course Code</th>
+                            <th scope="col">Course Name</th>
+                            <th scope="col">Seats</th>
+                            <th scope="col">Fee(Rs)</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let course of registeredCourses; let i=index">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{course.courseCode}}</td>
+                            <td>{{course.courseName}}</td>
+                            <td>{{course.seats}}</td>
+                            <td>{{course.fee}}</td>
+                            <td><button type="button" class="btn btn-light"
+                                    (click)="dropCourse(course.courseCode)">Drop</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab label="Grade Card">
+        <div>
+            <div class="col-lg-8">
+                <h3>Grade Card</h3>
+                <br>
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Course Code</th>
+                            <th scope="col">Course Name</th>
+                            <th scope="col">Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let grade of gradeCard; let i=index">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{grade.courseCode}}</td>
+                            <td>{{grade.courseName}}</td>
+                            <td>{{grade.grade}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab label="Payment">
+        <div>
+            <div class="col-lg-8">
+                <h3>Payment</h3>
+                <br>
+                ***Payment code here***
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab disabled>
+        <ng-template mat-tab-label>
+            <button mat-icon-button (click)="someFn()">
+                <mat-icon>Logout</mat-icon>
+            </button>
+        </ng-template>
+    </mat-tab>
+
+</mat-tab-group>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Professor Dashboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+
+    function addGradeMessage() {
+      swal("Added!", "Grade Added successfully!", "success");
+    }
+
+  </script>
+ 
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">ProfessorPortal</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="app-professor-component">Home</a></li>
+      <li><a href="app-prof-view-cource-component">View Courses</a></li>
+      <li><a href="app-prof-enrolld-students-component">View Enrolled Students</a></li>
+      <li><a href="app-prof-add-grade-component">Add Grades</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login Page</a></li>
+    </ul>
+  </div>
+</nav>
+  
+<div class="container">
+    <div style="background-color: rgba(19, 17, 17, 0.664); padding: 4%;">
+        <div style="background-color: rgb(255, 255, 255); padding: 5%;">
+  <h1 style="text-align: center;">Add Grades</h1>
+  
+  <form method="POST" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)"><br>
+    
+    <table style="border: 3px solid;" class="table" border="1px">
+        <thead>
+            <tr>
+              <tr>
+                <th scope="col">Course Code</th>
+                <th scope="col">Course Name</th>
+                <th scope="col">Student Id</th>
+                <th scope="col">Add Grades</th>
+                <th scope="col">Action</th>
+                </tr>
+            <!-- </tr> -->
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of studentDetails;let index = index;">
+              <td>{{student.courseCode}}</td>
+              <td>{{student.courseName}}</td>
+              <td>{{student.studentId}}</td>
+              <td><input type="text" id="grade" name="grade" size="5" formControlName="grade"></td>
+              <td><input type="submit" class="btn btn-dark" (click)="method(student.courseCode,student.courseName,student.studentId)" value="ADD"></td>
+             </tr>
+      </tbody>
+    </table>
+    </form>
+</div></div></div>
+
+</body>
+</html>
+

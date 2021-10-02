@@ -26,8 +26,31 @@
 </nav>
   
 <div class="container">
-  <h1 style="text-align: center;">Welcome Professor</h1>
-</div>
+    <div style="background-color: rgba(19, 17, 17, 0.664); padding: 4%;">
+        <div style="background-color: rgb(255, 255, 255); padding: 5%;">
+  <h1 style="text-align: center;">Enrolled Students</h1>
+  <form method="POST" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)"><br>
+    <table style="border: 3px solid;" class="table" border="1px">
+        <thead>
+            <tr>
+              <tr>
+                <th scope="col">Course Code</th>
+                <th scope="col">Course Name</th>
+                <th scope="col">Student Id</th>
+                </tr>
+            <!-- </tr> -->
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of studentDetails">
+              <td>{{student.courseCode}}</td>
+              <td>{{student.courseName}}</td>
+              <td>{{student.studentId}}</td>
+             </tr>
+      </tbody>
+    </table>
+    </form>
+</div></div></div>
 
 </body>
 </html>
+
