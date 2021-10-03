@@ -36,6 +36,9 @@ public class AdminValidator {
 	 * @return if dropCourse is already present in catalog
 	 */
 	public static boolean isValidDropCourse(String dropCourseCode, List<Course> courseList) {
+		if(courseList==null) {
+			
+		}
 		for(Course course : courseList) {
 			if(dropCourseCode.equalsIgnoreCase(course.getCourseCode())) {
 				return true; 

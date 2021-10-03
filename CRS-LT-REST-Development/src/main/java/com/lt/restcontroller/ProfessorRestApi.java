@@ -82,7 +82,7 @@ public class ProfessorRestApi {
 	            @ApiResponse(code = 401, message = "not authorized!"), 
 	            @ApiResponse(code = 403, message = "forbidden!!!"),
 	            @ApiResponse(code = 404, message = "not found!!!") })
-	@RequestMapping(consumes = MediaType.APPLICATION_JSON, method = RequestMethod.GET, value = "/viewEnrolledStudents")
+	@RequestMapping(consumes = MediaType.APPLICATION_JSON, method = RequestMethod.POST, value = "/viewEnrolledStudents")
 	public List<StudentsEnrolled> viewEnrolledStudents(@RequestBody Map<String,String> json) throws SQLException{
 		return professorImplService.viewEnrolledStudents(json.get("profId"));
 	}
@@ -100,7 +100,7 @@ public class ProfessorRestApi {
 	            @ApiResponse(code = 401, message = "Not Authorized!"), 
 	            @ApiResponse(code = 403, message = "Forbidden!!!"),
 	            @ApiResponse(code = 404, message = "Not Found!!!") })
-    @RequestMapping(consumes = MediaType.APPLICATION_JSON, method = RequestMethod.GET, value = "/viewRegisteredCourses")
+    @RequestMapping(consumes = MediaType.APPLICATION_JSON, method = RequestMethod.POST, value = "/viewRegisteredCourses")
     public List<Course> viewRegisteredCourses(@RequestBody Map<String,String> json) throws SQLException{
 	   return professorImplService.viewRegisteredCourses(json.get("profId"));
     }

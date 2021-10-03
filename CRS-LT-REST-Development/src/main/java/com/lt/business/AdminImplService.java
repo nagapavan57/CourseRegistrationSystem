@@ -47,15 +47,14 @@ public class AdminImplService implements AdminInterface{
 	public boolean deleteCourse(String courseCode, List<Course> courseList)
 			throws CourseNotFoundException{
 		
-		if(!AdminValidator.isValidDropCourse(courseCode, courseList)) {
-			logger.error("courseCode: " + courseCode+ " already present in catalog!!");
-			throw new CourseNotFoundException(courseCode);
-		}
-			if(adminimpl.deleteCourse(courseCode)) {
-				return true;
-			}
-		
-		return false;
+		/*
+		 * if(!AdminValidator.isValidDropCourse(courseCode, courseList)) {
+		 * logger.error("courseCode: " + courseCode+ " already present in catalog!!");
+		 * System.out.println("inside if block of validation"); throw new
+		 * CourseNotFoundException(courseCode); }else{
+		 */
+			return adminimpl.deleteCourse(courseCode);
+		//}
 		
 	}
 

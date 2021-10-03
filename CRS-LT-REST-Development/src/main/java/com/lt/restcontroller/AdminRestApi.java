@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -108,12 +109,13 @@ public class AdminRestApi {
 	            @ApiResponse(code = 401, message = "Not Authorized!"), 
 	            @ApiResponse(code = 403, message = "Forbidden!!!"),
 	            @ApiResponse(code = 404, message = "Not Found!!!") })
-	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.DELETE, value = "/deleteCourse")
-	public ResponseEntity<Object> deleteCourse(@RequestBody String courseCode) throws CourseNotFoundException {
-		List<Course> courseList = null;
+	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.DELETE, value = "/deleteCourse/{courseCode}")
+	public ResponseEntity<Object> deleteCourse(@PathVariable String courseCode) throws CourseNotFoundException {
+		List<Course> courseList = admin.viewCourses();
 		
 			if(admin.deleteCourse(courseCode, courseList)) {
 				logger.info("Course "+courseCode+" deleted successfully!");
+				System.out.println("Not Entered Here:::::::::::::::::::");
 				return new ResponseEntity("Course "+courseCode+" deleted successfully!",HttpStatus.OK);
 			}else {
 				throw new CourseNotFoundException(courseCode);

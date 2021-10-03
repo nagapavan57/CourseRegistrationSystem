@@ -91,10 +91,10 @@ public class AdminDaoImpl implements AdminDaoInterface{
 				int del_Status=stmt.executeUpdate();
 				if(del_Status==0){
 					logger.error("Course with coursecode "+courseCode+"Not Deleted!!!!");
-					return true;
+					return false;
 				}else{
 					logger.info("Course with coursecode "+courseCode+" Deleted Succesfully");
-					return false;
+					return true;
 				}
 			}else{
 				throw new CourseNotFoundException(courseCode);

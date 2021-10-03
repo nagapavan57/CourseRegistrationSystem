@@ -68,7 +68,7 @@ public class UserRestAPI {
 				Role userRole = Role.stringToName(role);
 				
 				logger.info("Login successful "+user.getUserId()+"!!@"+localDateTime);
-				return new ResponseEntity(userRole+" Login successful "+user.getUserId()+"!!@"+localDateTime, HttpStatus.NOT_FOUND);
+				return new ResponseEntity(userRole.toString(), HttpStatus.OK);
 			} else {
 				
 				logger.info("Something Went Wrong!!!");

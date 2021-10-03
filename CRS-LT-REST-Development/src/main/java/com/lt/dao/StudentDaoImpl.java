@@ -104,7 +104,9 @@ public class StudentDaoImpl implements StudentDaoInterface {
 			ResultSet rs = statement.executeQuery();
 
 			if (rs.next()) {
+				logger.info("StudentId:::::::::::"+rs.getInt("studentid"));
 				return rs.getInt("studentid");
+				
 			}
 
 		} catch (SQLException e) {

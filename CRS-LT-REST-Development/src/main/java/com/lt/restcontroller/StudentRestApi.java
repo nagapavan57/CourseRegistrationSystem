@@ -27,6 +27,7 @@ import com.lt.business.PaymentImplService;
 import com.lt.business.PaymentInterface;
 import com.lt.business.SemisterRegistrationImplService;
 import com.lt.business.SemisterRegistrationInterface;
+import com.lt.business.StudentInterface;
 import com.lt.exception.CourseLimitExceedException;
 import com.lt.exception.CourseNotFoundException;
 import com.lt.exception.SeatNotAvailableException;
@@ -43,7 +44,7 @@ import io.swagger.annotations.ApiResponses;
  */
 @RestController
 @RequestMapping("/Student")
-@CrossOrigin // This Annotation will enable all the request which is coming from various
+@CrossOrigin(origins="http://localhost:4200") // This Annotation will enable all the request which is coming from various
 				// cross platform browser
 public class StudentRestApi {
 
@@ -55,6 +56,8 @@ public class StudentRestApi {
 	PaymentInterface payment;
 	@Autowired
 	NotificationInterface notify;
+	@Autowired
+	StudentInterface student;
 	
 	/**
 	 * 
@@ -160,7 +163,7 @@ public class StudentRestApi {
 			@ApiResponse(code = 401, message = "Not Authorized!"), @ApiResponse(code = 403, message = "Forbidden!!!"),
 			@ApiResponse(code = 404, message = "Not Found!!!") })
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.GET, value = "/viewGradeCard/{studentId}")
-	public List<Grade> viewGradeCourses(@PathVariable int studentId) throws SQLException {
+	public List<Grade> viewGradeCard(@PathVariable int studentId) throws SQLException {
 		return semisterRegistrationInterface.viewGradeCard(studentId);
 	}
 
@@ -227,6 +230,24 @@ public class StudentRestApi {
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.GET, value = "/getRegistrationStatus")
 	public boolean getRegistrationStatus(@RequestBody int studentId) throws SQLException {
 		return semisterRegistrationInterface.getRegistrationStatus(studentId);
+	}
+	
+	/**
+	 * 
+	 * @param userId
+	 * @return returns the status of registration
+	 * @throws SQLException
+	 */
+	@ApiOperation(value = "Get StudentId by userId ", response = Iterable.class, tags = "getStudentId")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success|OK"),
+			@ApiResponse(code = 401, message = "Not Authorized!"), @ApiResponse(code = 403, message = "Forbidden!!!"),
+			@ApiResponse(code = 404, message = "Not Found!!!") })
+	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.GET, value = "/getStudentId/{userId}")
+	public ResponseEntity getStudentId(@PathVariable String userId) throws SQLException {
+		String studentId = Integer.toString(student.getStudentId(userId));
+		logger.info("student in rest controller::::::;"+studentId);
+		
+		return new ResponseEntity(studentId.toString(),HttpStatus.OK);
 	}
 
 }
