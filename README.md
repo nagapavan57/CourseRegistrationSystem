@@ -1,2 +1,2 @@
 # Course Registration System
-to register course for paeticilar student in an University
+to register course for particilar student in an University
