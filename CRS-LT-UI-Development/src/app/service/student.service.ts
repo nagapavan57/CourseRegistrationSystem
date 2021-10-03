@@ -15,19 +15,36 @@ export class StudentService {
  
   studentId=localStorage.getItem('studentId');
   
+  /**
+   * 
+   * @returns List pof Courses Available to Registe
+   */
   viewAvailableCourses() {
     return this.http.get('http://localhost:8082/Student/viewAvailableCourses/'+this.studentId);
     
   }
-
+  /**
+   * 
+   * @returns List of Courses registered
+   */
   viewRegisteredCourses() {
     return this.http.get('http://localhost:8082/Student/viewRegisteredCourses/'+this.studentId);
   }
 
+  /**
+   * 
+   * @returns Return Grade Card
+   */
   viewGradeCard() {
     return this.http.get('http://localhost:8082/Student/viewGradeCard/'+this.studentId);
   }
 
+  /**
+   * 
+   * @param courseCode Course code in which student wants to register
+   * @param courseName Course Name in which student wants to register
+   * @returns 
+   */
   registerCourse(courseCode, courseName) {
     const body = {
       courseCode: courseCode,
@@ -36,7 +53,11 @@ export class StudentService {
     };
     return this.http.post('http://localhost:8082/Student/registerCourse', body, { headers: hdr, responseType: 'text' });
   }
-
+  /**
+   * 
+   * @param courseCode Course code in which student wants to drop
+   * @returns 
+   */
   dropCourse(courseCode) {
     const body = {
       courseCode: courseCode,

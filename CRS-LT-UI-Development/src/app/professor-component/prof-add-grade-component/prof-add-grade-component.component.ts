@@ -6,6 +6,7 @@ import { Student } from 'src/model/student';
 import { AddGrade } from 'src/model/addGrade';
 import { EnrolledStudent } from 'src/model/enrolledStudentModel';
 import { ProfessorServiceService } from 'src/app/service/professor.service';
+import { NGXLogger } from 'ngx-logger';
 
 @Component({
   selector: 'app-prof-add-grade-component',
@@ -14,20 +15,20 @@ import { ProfessorServiceService } from 'src/app/service/professor.service';
 })
 export class ProfAddGradeComponentComponent implements OnInit {
  
-  constructor(private router: Router,private service:ProfessorServiceService) { }
+  constructor(private router: Router,private service:ProfessorServiceService,private logger:NGXLogger) { }
   myForm: FormGroup;
-  studentDetails:EnrolledStudent[];
+  studentDetails:any[];
   prof:Professor[];
   addGrade:AddGrade[];
-  profId:string="amit888";
+  profId:string=localStorage.getItem('userId');
   i = '';
   studentDetails2:EnrolledStudent;
   ngOnInit(): void {
     const prof1 = {
       profId:this.profId
     }
-    this.service.getEnrolledStudents(prof1).subscribe(data =>{
-      this.studentDetails = data.body;
+    this.service.getEnrolledStudents(prof1).subscribe((data:any) =>{
+      this.studentDetails = data;
       // console.log(data.body)
     });
     {
@@ -59,10 +60,10 @@ export class ProfAddGradeComponentComponent implements OnInit {
       studentId:this.studentDetails2.studentId
    }
    
-  console.log("Adding Grade");
-         this.service.addStudentGrade(addGrade).subscribe(data =>{
-            console.log(data);
-            console.log("grade Added!!");
+   this.logger.info("Adding Grade");
+         this.service.addStudentGrade(addGrade).subscribe((data:any) =>{
+          this.logger.info(data);
+          this.logger.info("grade Added!!");
          });
   
   }

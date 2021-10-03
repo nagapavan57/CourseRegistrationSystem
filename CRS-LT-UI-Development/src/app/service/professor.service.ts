@@ -23,16 +23,28 @@ export class ProfessorServiceService {
   constructor(private http:HttpClient) { }
 
 
-
- getEnrolledStudents(id):Observable<EntityResponseType>{
-   return this.http.post<EnrolledStudent[]>("http://localhost:8082/Professor/viewEnrolledStudents", id, {observe: 'response'});
-}
-
- viewCourseDetails(id):Observable<EntityResponseType2>{
-   return this.http.post<ViewCourse[]>("http://localhost:8082/Professor/viewRegisteredCourses", id, {observe: 'response'});
+/**
+ * 
+ * @param id Professor Id in Json format
+ * @returns list of students enrolled for the course he is teaching
+ */
+ getEnrolledStudents(id){
+   return this.http.post("http://localhost:8082/Professor/viewEnrolledStudents", id);
+  }
+  /**
+   * 
+   * @param id Professor Id in Json format
+   * @returns View Courses he is register to teach
+   */
+ viewCourseDetails(id){
+   return this.http.post("http://localhost:8082/Professor/viewRegisteredCourses", id);
  }
-
- addStudentGrade(addGrade:AddGrade){
+ /**
+  * 
+  * @param addGrade Grade Object in json format
+  * @returns Custom Response Message
+  */
+ addStudentGrade(addGrade){
    return this.http.post("http://localhost:8082/Professor/addGrade",addGrade,{headers:hdr, responseType: 'text'});
  }
 }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule} from '@angular/forms'; 
 import { BrowserModule } from '@angular/platform-browser';
 import { MatTabsModule } from '@angular/material/tabs';
+import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProfViewCourceComponentComponent } from '../app/professor-component/prof-view-cource-component/prof-view-cource-component.component';
 import { ProfEnrolldStudentsComponentComponent } from '../app/professor-component/prof-enrolld-students-component/prof-enrolld-students-component.component';
 import { ProfAddGradeComponentComponent } from '../app/professor-component/prof-add-grade-component/prof-add-grade-component.component';
+import { CommonPipe } from './pipe/common.pipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { ProfAddGradeComponentComponent } from '../app/professor-component/prof-
     AdminComponentComponent,
     ProfViewCourceComponentComponent,
     ProfEnrolldStudentsComponentComponent,
-    ProfAddGradeComponentComponent
+    ProfAddGradeComponentComponent,
+    CommonPipe
 
   ],
   imports: [
@@ -35,7 +38,8 @@ import { ProfAddGradeComponentComponent } from '../app/professor-component/prof-
     MatTabsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LoggerModule.forRoot({serverLoggingUrl: '/users/logs', level: NgxLoggerLevel.INFO,serverLogLevel: NgxLoggerLevel.ERROR})
   ],
   providers: [],
   bootstrap: [AppComponent]

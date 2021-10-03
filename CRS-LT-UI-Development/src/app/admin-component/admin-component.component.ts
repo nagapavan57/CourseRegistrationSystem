@@ -5,6 +5,7 @@ import { Course } from 'src/model/course';
 import { Professor } from 'src/model/professor';
 import { AdminService } from '../service/admin.service';
 import { Router } from '@angular/router';
+import { NGXLogger } from 'ngx-logger';
 
 @Component({
   selector: 'app-admin-component',
@@ -20,35 +21,46 @@ export class AdminComponentComponent implements OnInit {
   courseList:any[];
   pendingAdmissionList:any[];
 
-  constructor(private admin:AdminService,private router:Router) { }
+  constructor(private admin:AdminService,private router:Router,private logger:NGXLogger) { }
 
   ngOnInit(): void {
     this.getCourses();
     this.pendingAdmissions();
     
   }
+  /**
+   * It will Give List of Pending Admissions
+   */
   pendingAdmissions(){
     this.admin.viewPendingAdmissions().subscribe((res:any[])=>{
       this.pendingAdmissionList=res;
-      console.log(res);
+      this.logger.info(res);
     })
   }
-
+  /**
+   * It will give List of Courses in catalog
+   */
   getCourses(){
     this.admin.getCourses().subscribe((res:any[])=>{
       this.courseList=res;
-      console.log(res);
+      this.logger.info(res);
     })
   }
+  /**
+   * 
+   * @param courseCode Coursecode which needs to be deleted
+   */
   deleteCourse(courseCode){
 
     this.admin.deleteCourse(courseCode).subscribe((res:any)=>{
       this.message=res;
-      console.log(res);
+      this.logger.info(res);
       window.location.reload();
     })
   }
-
+  /**
+   * It will add course into Catalog
+   */
   addCourse(){
     const data={
       courseCode:this.course.courseCode,
@@ -58,18 +70,25 @@ export class AdminComponentComponent implements OnInit {
     }
       this.admin.addCourse(data).subscribe((res:any)=>{
         this.message=res;
-        console.log(res);
+        this.logger.info(res);
         window.location.reload();
       })
   }
+  /**
+   * 
+   * @param studentId It Will Approve Particular Student
+   */
   approveStudent(studentId){
     this.admin.approveStudent(studentId).subscribe((res:any)=>{
       this.message=res;
-      console.log(res);
+      this.logger.info(res);
       window.location.reload();
     })
     
   }
+  /**
+   * Adding Professor into System
+   */
   addProfessor(){
     const data={
       userId:this.professor.userId,
@@ -80,11 +99,13 @@ export class AdminComponentComponent implements OnInit {
     }
     this.admin.addProfessor(data).subscribe((res:any)=>{
       this.message=res;
-      console.log(res);
+      this.logger.info(res);
       window.location.reload();
     })
   }
-
+/**
+ * Assigning Course to Particular Professor
+ */
   assignCourse(){
     const data={
       courseCode:this.course.courseCode,
@@ -93,10 +114,13 @@ export class AdminComponentComponent implements OnInit {
 
     this.admin.assignCourse(data).subscribe((res:any)=>{
       this.message=res;
-      console.log(res);
+      this.logger.info(res);
       window.location.reload();
     })
   }
+  /**
+   * Routing Function for Logout
+   */
   someFn(){
     this.router.navigate(['']);
   }

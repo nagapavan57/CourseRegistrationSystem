@@ -7,6 +7,7 @@ import { Student } from 'src/model/student';
 import{UserService} from 'src/app/service/user.service';
 import { Router } from '@angular/router';
 import { AdminService } from '../service/admin.service';
+import { NGXLogger } from 'ngx-logger';
 
 
 
@@ -26,7 +27,7 @@ export class UserComponentComponent implements OnInit {
   role:any;
 
   constructor(private user:UserService,private _httpService:UserService
-    ,private router:Router,private admin:AdminService) { }
+    ,private router:Router,private admin:AdminService,private logger:NGXLogger) { }
   
   ngOnInit(): void {
 
@@ -65,6 +66,10 @@ export class UserComponentComponent implements OnInit {
     });
   }
 
+
+  /**
+   * It will check Userid,pwd and redirect to respective dashboard
+   */
   checkLogin(){
     const data={
       userId:this.userObj.userId,
@@ -75,10 +80,10 @@ export class UserComponentComponent implements OnInit {
     
     
     this.user.checkLogin(data).subscribe((res:any)=>{
-      console.log(res);
+      this.logger.info(res);
       this.role=res;
       this.submitted=false;
-      console.log(this.role);
+      this.logger.info(this.role);
       if(this.role==="ADMIN"){
         this.router.navigate(['dashboardAdmin']);     
       }
@@ -93,7 +98,7 @@ export class UserComponentComponent implements OnInit {
   }
 
   /**
-   * 
+   * update Password of User
    */
   updatePassword(){
     const data={
@@ -101,7 +106,7 @@ export class UserComponentComponent implements OnInit {
       newPassword:this.userObj.password,
     }
     this._httpService.updatePassword(data).subscribe((res:any)=>{
-      console.log(res);
+      this.logger.info(res);
       this.updated=false;
       this.message=res;
       if(res==="Updated"){
@@ -109,7 +114,9 @@ export class UserComponentComponent implements OnInit {
       }
     })
   }
-
+/**
+ * Signup method for Student
+ */
   register(){
     const data={
       userId:this.studentObj.userId,
@@ -122,7 +129,7 @@ export class UserComponentComponent implements OnInit {
 
     this._httpService.registerStudent(data).subscribe((messg:any)=>{
           this.submitted=false;
-          console.log("Response::"+messg);
+          this.logger.info("Response::"+messg);
           this.message=messg;
     })
     this.router.navigate(['/']);

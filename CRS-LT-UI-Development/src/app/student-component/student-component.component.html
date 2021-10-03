@@ -94,7 +94,30 @@
             <div class="col-lg-8">
                 <h3>Payment</h3>
                 <br>
-                ***Payment code here***
+                <table class="table table-dark">
+                    <thead>
+                      <tr>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                  </table>
+                  <br>
+                  <div>
+                      <form><p>
+                      <label for="coursecode" style="color:rgb(9, 173, 44);font-size:15px;">Card Number</label>
+                      <input type="text" id="coursecode" name="coursecode"  ><br>
+                      </p><p>
+                      <label for="coursename" style="color:rgb(9, 173, 44);font-size:15px;">Expirydate</label>
+                      <input type="text" id="coursename" name="coursename"><br>
+                      </p><p>
+                      <label for="seats" style="color:rgb(9, 173, 44);font-size:15px;">CVV</label>
+                      <input type="text" id="seats" name="seats"><br>
+                      </p></form>
+                      <input type="submit" class="btn btn-dark" value="Submit">
+                  </div>
             </div>
         </div>
     </mat-tab>
@@ -103,6 +126,11 @@
             <button mat-icon-button (click)="someFn()">
                 <mat-icon>Logout</mat-icon>
             </button>
+        </ng-template>
+    </mat-tab>
+    <mat-tab disabled>
+        <ng-template mat-tab-label>
+           <div>{{today |date:'h:mm:ss a zzzz'}}</div>
         </ng-template>
     </mat-tab>
 
